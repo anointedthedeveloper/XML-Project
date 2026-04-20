@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Address Book</title>
+  <style>
+    body  { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; }
+    h1    { color: #333; }
+    input { width: 100%; padding: 8px; margin-bottom: 16px; box-sizing: border-box;
+            border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+    table { width: 100%; border-collapse: collapse; }
+    th    { background: #4a90d9; color: #fff; padding: 10px; text-align: left; }
+    td    { padding: 9px 10px; border-bottom: 1px solid #ddd; }
+    tr:hover td { background: #f0f7ff; }
+  </style>
+</head>
+<body>
+  <h1>&#128100; Address Book</h1>
+  <input type="text" id="search" placeholder="Search by name, phone or email…" oninput="filterTable()">
+  <div id="output"></div>
+
+  <script>
+    let rows = [];
+
+    async function loadContacts() {
+      const [xmlRes, xslRes] = await Promise.all([
+        fetch("contacts.xml"),
+        fetch("contacts.xsl")
+      ]);
+      const xml = new DOMParser().parseFromString(await xmlRes.text(), "application/xml");
+      const xsl = new DOMParser().parseFromString(await xslRes.text(), "application/xml");
+
+      const processor = new XSLTProcessor();
+      processor.importStylesheet(xsl);
+      const result = processor.transformToFragment(xml, document);
+      document.getElementById("output").appendChild(result);
+
+      rows = [...document.querySelectorAll("#output table tr")].slice(1); // skip header
+    }
+
+    function filterTable() {
+      const q = document.getElementById("search").value.toLowerCase();
+      rows.forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(q) ? "" : "none";
+      });
+    }
+
+    loadContacts();
+  </script>
+</body>
+</html>

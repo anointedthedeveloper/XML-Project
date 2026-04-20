@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="contacts.xsl"?>
+<addressbook>
+  <contact>
+    <name>Alice Johnson</name>
+    <phone>+1-555-0101</phone>
+    <email>alice@example.com</email>
+  </contact>
+  <contact>
+    <name>Bob Smith</name>
+    <phone>+1-555-0102</phone>
+    <email>bob@example.com</email>
+  </contact>
+  <contact>
+    <name>Carol White</name>
+    <phone>+1-555-0103</phone>
+    <email>carol@example.com</email>
+  </contact>
+</addressbook>
