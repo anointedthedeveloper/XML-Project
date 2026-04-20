@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Catalog</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body  { font-family: Arial, sans-serif; background: #0f0f0f; color: #eee; padding: 40px 20px; }
+    h1    { color: #e50914; margin-bottom: 20px; }
+    .controls { display: flex; gap: 10px; margin-bottom: 20px; }
+    input, select {
+      padding: 8px 12px; border: 1px solid #333; border-radius: 4px;
+      background: #1a1a1a; color: #eee; font-size: 14px; flex: 1;
+    }
+    table { width: 100%; border-collapse: collapse; max-width: 800px; }
+    th    { background: #e50914; color: #fff; padding: 10px; text-align: left; }
+    td    { padding: 9px 10px; border-bottom: 1px solid #2a2a2a; }
+    tr:hover td { background: #1a1a1a; }
+    .stars { color: #f5c518; }
+    #message { color: #aaa; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>&#127916; Movie Catalog</h1>
+  <div class="controls">
+    <input type="text" id="search" placeholder="Search title…" oninput="filter()">
+    <select id="genre" onchange="filter()">
+      <option value="">All Genres</option>
+    </select>
+  </div>
+  <table>
+    <thead><tr><th>Title</th><th>Genre</th><th>Year</th><th>Rating</th></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <p id="message"></p>
+
+  <script>
+    let movies = [];
+
+    fetch("movies.php")
+      .then(r => r.text())
+      .then(xml => {
+        const doc = new DOMParser().parseFromString(xml, "application/xml");
+        movies = [...doc.querySelectorAll("movie")].map(m => ({
+          title:  m.querySelector("title").textContent,
+          genre:  m.querySelector("genre").textContent,
+          year:   m.querySelector("year").textContent,
+          rating: parseFloat(m.querySelector("rating").textContent)
+        }));
+
+        // populate genre dropdown
+        const genres = [...new Set(movies.map(m => m.genre))].sort();
+        genres.forEach(g => {
+          const opt = document.createElement("option");
+          opt.value = opt.textContent = g;
+          document.getElementById("genre").appendChild(opt);
+        });
+
+        render(movies);
+      })
+      .catch(() => {
+        document.getElementById("message").textContent =
+          "Could not load movies. Make sure this is running through XAMPP (http://localhost/…).";
+      });
+
+    function render(list) {
+      const tbody = document.getElementById("tbody");
+      tbody.innerHTML = list
+        .sort((a, b) => b.rating - a.rating)
+        .map(m => `<tr>
+          <td>${m.title}</td>
+          <td>${m.genre}</td>
+          <td>${m.year}</td>
+          <td><span class="stars">&#9733;</span> ${m.rating.toFixed(1)}</td>
+        </tr>`).join("");
+      document.getElementById("message").textContent =
+        list.length === 0 ? "No movies found." : "";
+    }
+
+    function filter() {
+      const q = document.getElementById("search").value.toLowerCase();
+      const g = document.getElementById("genre").value;
+      render(movies.filter(m =>
+        m.title.toLowerCase().includes(q) &&
+        (g === "" || m.genre === g)
+      ));
+    }
+  </script>
+</body>
+</html>

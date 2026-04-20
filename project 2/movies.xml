@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="movies.xsl"?>
+<catalog>
+  <movie>
+    <title>Inception</title>
+    <genre>Sci-Fi</genre>
+    <year>2010</year>
+    <rating>8.8</rating>
+  </movie>
+  <movie>
+    <title>The Dark Knight</title>
+    <genre>Action</genre>
+    <year>2008</year>
+    <rating>9.0</rating>
+  </movie>
+  <movie>
+    <title>Interstellar</title>
+    <genre>Sci-Fi</genre>
+    <year>2014</year>
+    <rating>8.6</rating>
+  </movie>
+  <movie>
+    <title>The Godfather</title>
+    <genre>Crime</genre>
+    <year>1972</year>
+    <rating>9.2</rating>
+  </movie>
+  <movie>
+    <title>Parasite</title>
+    <genre>Thriller</genre>
+    <year>2019</year>
+    <rating>8.5</rating>
+  </movie>
+  <movie>
+    <title>The Lion King</title>
+    <genre>Animation</genre>
+    <year>1994</year>
+    <rating>8.5</rating>
+  </movie>
+</catalog>
