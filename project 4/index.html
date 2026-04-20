@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather Forecast</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a73e8, #0d47a1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px 20px;
+      color: #fff;
+    }
+
+    h1   { font-size: 2rem; margin-bottom: 6px; }
+    p.sub { opacity: 0.8; margin-bottom: 30px; font-size: 0.95rem; }
+
+    .search-box {
+      display: flex; gap: 10px; width: 100%; max-width: 480px; margin-bottom: 40px;
+    }
+    input {
+      flex: 1; padding: 12px 16px; border: none; border-radius: 8px;
+      font-size: 15px; outline: none;
+    }
+    button {
+      padding: 12px 20px; background: #fbbc04; color: #000;
+      border: none; border-radius: 8px; font-size: 15px;
+      cursor: pointer; font-weight: bold;
+    }
+    button:hover { background: #f9a800; }
+
+    /* weather card */
+    .card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border-radius: 16px;
+      padding: 30px 40px;
+      width: 100%; max-width: 480px;
+      text-align: center;
+      display: none;
+    }
+    .card.show { display: block; }
+    .card h2   { font-size: 1.6rem; margin-bottom: 4px; }
+    .condition { font-size: 1rem; opacity: 0.85; margin-bottom: 24px; }
+    .stats     { display: flex; justify-content: space-around; }
+    .stat span { display: block; font-size: 1.5rem; font-weight: bold; }
+    .stat label{ font-size: 0.8rem; opacity: 0.75; margin-top: 4px; }
+
+    .error {
+      background: rgba(255,80,80,0.25);
+      border-radius: 10px; padding: 14px 24px;
+      display: none;
+    }
+    .error.show { display: block; }
+
+    /* all cities table */
+    .all-cities { width: 100%; max-width: 700px; margin-top: 50px; }
+    .all-cities h3 { margin-bottom: 12px; opacity: 0.9; }
+    table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
+    th { background: rgba(0,0,0,0.25); padding: 10px; text-align: left; font-size: 0.85rem; }
+    td { padding: 9px 10px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; }
+    tr:hover td { background: rgba(255,255,255,0.08); }
+  </style>
+</head>
+<body>
+
+  <h1>&#127780; Weather Forecast</h1>
+  <p class="sub">Type a city name to get current weather conditions</p>
+
+  <div class="search-box">
+    <input type="text" id="cityInput" placeholder="e.g. Lagos, Tokyo, Paris…" />
+    <button onclick="search()">Search</button>
+  </div>
+
+  <div class="card" id="card">
+    <h2 id="cityName"></h2>
+    <p class="condition" id="condition"></p>
+    <div class="stats">
+      <div class="stat"><span id="temp"></span><label>Temperature</label></div>
+      <div class="stat"><span id="humidity"></span><label>Humidity</label></div>
+      <div class="stat"><span id="wind"></span><label>Wind Speed</label></div>
+    </div>
+  </div>
+
+  <div class="error" id="error">&#10060; City not found. Try: Lagos, London, New York, Tokyo, Dubai, Paris, Sydney</div>
+
+  <div class="all-cities">
+    <h3>&#127758; All Cities</h3>
+    <table>
+      <thead><tr><th>City</th><th>Temp</th><th>Humidity</th><th>Wind</th><th>Condition</th></tr></thead>
+      <tbody id="allCities"></tbody>
+    </table>
+  </div>
+
+  <script>
+    let cityData = {};
+
+    fetch("weather.xml")
+      .then(r => r.text())
+      .then(xmlText => {
+        const xml = new DOMParser().parseFromString(xmlText, "application/xml");
+        const cities = xml.querySelectorAll("city");
+        const tbody = document.getElementById("allCities");
+
+        cities.forEach(c => {
+          const name = c.getAttribute("name");
+          cityData[name.toLowerCase()] = {
+            name,
+            temp:      c.querySelector("temperature").textContent + c.querySelector("temperature").getAttribute("unit"),
+            humidity:  c.querySelector("humidity").textContent    + c.querySelector("humidity").getAttribute("unit"),
+            wind:      c.querySelector("windspeed").textContent   + c.querySelector("windspeed").getAttribute("unit"),
+            condition: c.querySelector("condition").textContent
+          };
+
+          tbody.innerHTML += `<tr>
+            <td>${name}</td>
+            <td>${cityData[name.toLowerCase()].temp}</td>
+            <td>${cityData[name.toLowerCase()].humidity}</td>
+            <td>${cityData[name.toLowerCase()].wind}</td>
+            <td>${cityData[name.toLowerCase()].condition}</td>
+          </tr>`;
+        });
+      });
+
+    function search() {
+      const key = document.getElementById("cityInput").value.trim().toLowerCase();
+      const card  = document.getElementById("card");
+      const error = document.getElementById("error");
+
+      if (cityData[key]) {
+        const d = cityData[key];
+        document.getElementById("cityName").textContent  = d.name;
+        document.getElementById("condition").textContent = d.condition;
+        document.getElementById("temp").textContent      = d.temp;
+        document.getElementById("humidity").textContent  = d.humidity;
+        document.getElementById("wind").textContent      = d.wind;
+        card.classList.add("show");
+        error.classList.remove("show");
+      } else {
+        card.classList.remove("show");
+        error.classList.add("show");
+      }
+    }
+
+    document.getElementById("cityInput")
+      .addEventListener("keydown", e => e.key === "Enter" && search());
+  </script>
+</body>
+</html>

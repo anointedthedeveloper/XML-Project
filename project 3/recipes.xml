@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="recipes.xsl"?>
+<recipes>
+
+  <recipe id="1">
+    <title>Jollof Rice</title>
+    <category>Main Course</category>
+    <cookingtime>45 minutes</cookingtime>
+    <ingredients>
+      <item>2 cups long grain rice</item>
+      <item>400ml tomato puree</item>
+      <item>1 onion, chopped</item>
+      <item>2 tbsp vegetable oil</item>
+      <item>1 tsp thyme</item>
+      <item>1 tsp curry powder</item>
+      <item>Salt to taste</item>
+      <item>2 cups chicken stock</item>
+    </ingredients>
+    <steps>
+      <step>Blend tomatoes and onions into a smooth puree.</step>
+      <step>Heat oil in a pot and fry the puree for 10 minutes until it thickens.</step>
+      <step>Add chicken stock, thyme, curry and salt. Bring to a boil.</step>
+      <step>Wash rice and add to the pot. Stir well.</step>
+      <step>Cover and cook on low heat for 30 minutes until rice is done.</step>
+    </steps>
+  </recipe>
+
+  <recipe id="2">
+    <title>Spaghetti Bolognese</title>
+    <category>Main Course</category>
+    <cookingtime>40 minutes</cookingtime>
+    <ingredients>
+      <item>300g spaghetti</item>
+      <item>250g minced beef</item>
+      <item>1 can chopped tomatoes</item>
+      <item>1 onion, diced</item>
+      <item>2 garlic cloves, minced</item>
+      <item>1 tbsp olive oil</item>
+      <item>1 tsp oregano</item>
+      <item>Salt and pepper to taste</item>
+    </ingredients>
+    <steps>
+      <step>Heat olive oil in a pan, fry onion and garlic until soft.</step>
+      <step>Add minced beef and cook until browned.</step>
+      <step>Stir in chopped tomatoes, oregano, salt and pepper.</step>
+      <step>Simmer on low heat for 20 minutes.</step>
+      <step>Cook spaghetti according to package instructions and serve with sauce.</step>
+    </steps>
+  </recipe>
+
+  <recipe id="3">
+    <title>Pancakes</title>
+    <category>Breakfast</category>
+    <cookingtime>20 minutes</cookingtime>
+    <ingredients>
+      <item>1 cup all-purpose flour</item>
+      <item>1 cup milk</item>
+      <item>1 egg</item>
+      <item>2 tbsp sugar</item>
+      <item>1 tsp baking powder</item>
+      <item>Pinch of salt</item>
+      <item>Butter for frying</item>
+    </ingredients>
+    <steps>
+      <step>Mix flour, sugar, baking powder and salt in a bowl.</step>
+      <step>Whisk in egg and milk until a smooth batter forms.</step>
+      <step>Heat butter in a non-stick pan over medium heat.</step>
+      <step>Pour a ladle of batter and cook until bubbles form, then flip.</step>
+      <step>Cook for 1 more minute and serve with syrup or fruit.</step>
+    </steps>
+  </recipe>
+
+  <recipe id="4">
+    <title>Vegetable Stir Fry</title>
+    <category>Vegetarian</category>
+    <cookingtime>15 minutes</cookingtime>
+    <ingredients>
+      <item>1 bell pepper, sliced</item>
+      <item>1 carrot, julienned</item>
+      <item>1 cup broccoli florets</item>
+      <item>2 tbsp soy sauce</item>
+      <item>1 tbsp sesame oil</item>
+      <item>2 garlic cloves, minced</item>
+      <item>1 tsp ginger, grated</item>
+    </ingredients>
+    <steps>
+      <step>Heat sesame oil in a wok over high heat.</step>
+      <step>Add garlic and ginger, stir for 30 seconds.</step>
+      <step>Add all vegetables and stir fry for 5–7 minutes.</step>
+      <step>Pour in soy sauce and toss to coat evenly.</step>
+      <step>Serve immediately over rice or noodles.</step>
+    </steps>
+  </recipe>
+
+</recipes>

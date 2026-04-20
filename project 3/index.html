@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recipe Book</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body  { font-family: Arial, sans-serif; background: #fffaf4; padding: 40px 20px; }
+    h1    { color: #e65c00; text-align: center; margin-bottom: 6px; font-size: 2rem; }
+    p.sub { text-align: center; color: #888; margin-bottom: 28px; }
+
+    .controls { display: flex; gap: 10px; max-width: 700px; margin: 0 auto 32px; }
+    input, select {
+      flex: 1; padding: 10px 14px; border: 1px solid #e0c8a8;
+      border-radius: 8px; font-size: 14px; background: #fff;
+    }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+
+    .card {
+      background: #fff; border: 1px solid #f0dcc8;
+      border-radius: 12px; padding: 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .card h2  { color: #e65c00; margin-bottom: 6px; font-size: 1.15rem; }
+    .meta     { font-size: 0.82rem; color: #999; margin-bottom: 14px; }
+    .meta span { margin-right: 12px; }
+    h4        { font-size: 0.88rem; color: #555; margin: 12px 0 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+    ul, ol    { padding-left: 18px; }
+    li        { font-size: 0.9rem; margin-bottom: 4px; color: #444; }
+
+    #noResult { text-align: center; color: #aaa; margin-top: 40px; display: none; }
+  </style>
+</head>
+<body>
+
+  <h1>&#127859; Recipe Book</h1>
+  <p class="sub">Browse recipes or search by name and category</p>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="Search recipe…" oninput="filter()">
+    <select id="category" onchange="filter()">
+      <option value="">All Categories</option>
+    </select>
+  </div>
+
+  <div class="grid" id="grid"></div>
+  <p id="noResult">No recipes found.</p>
+
+  <script>
+    let recipes = [];
+
+    fetch("recipes.xml")
+      .then(r => r.text())
+      .then(xmlText => {
+        const xml = new DOMParser().parseFromString(xmlText, "application/xml");
+
+        recipes = [...xml.querySelectorAll("recipe")].map(r => ({
+          title:    r.querySelector("title").textContent,
+          category: r.querySelector("category").textContent,
+          time:     r.querySelector("cookingtime").textContent,
+          ingredients: [...r.querySelectorAll("ingredients item")].map(i => i.textContent),
+          steps:       [...r.querySelectorAll("steps step")].map(s => s.textContent)
+        }));
+
+        // populate category dropdown
+        const cats = [...new Set(recipes.map(r => r.category))].sort();
+        cats.forEach(c => {
+          const opt = document.createElement("option");
+          opt.value = opt.textContent = c;
+          document.getElementById("category").appendChild(opt);
+        });
+
+        render(recipes);
+      });
+
+    function render(list) {
+      const grid = document.getElementById("grid");
+      const noResult = document.getElementById("noResult");
+
+      if (list.length === 0) {
+        grid.innerHTML = "";
+        noResult.style.display = "block";
+        return;
+      }
+
+      noResult.style.display = "none";
+      grid.innerHTML = list.map(r => `
+        <div class="card">
+          <h2>&#127860; ${r.title}</h2>
+          <p class="meta">
+            <span>&#127860; ${r.category}</span>
+            <span>&#9201; ${r.time}</span>
+          </p>
+          <h4>Ingredients</h4>
+          <ul>${r.ingredients.map(i => `<li>${i}</li>`).join("")}</ul>
+          <h4>Preparation Steps</h4>
+          <ol>${r.steps.map(s => `<li>${s}</li>`).join("")}</ol>
+        </div>
+      `).join("");
+    }
+
+    function filter() {
+      const q = document.getElementById("search").value.toLowerCase();
+      const c = document.getElementById("category").value;
+      render(recipes.filter(r =>
+        r.title.toLowerCase().includes(q) && (c === "" || r.category === c)
+      ));
+    }
+  </script>
+</body>
+</html>
