@@ -5,87 +5,96 @@
   <title>Address Book – XML Diagram</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; background: #f0f7ff; padding: 40px 20px; }
-    h1 { text-align: center; color: #1a56a0; margin-bottom: 6px; }
-    p.sub { text-align: center; color: #666; margin-bottom: 20px; font-size: 0.9rem; }
+    html, body { height: 100%; font-family: Arial, sans-serif; background: #f0f7ff; overflow: hidden; }
 
-    svg { display: block; margin: 0 auto; overflow: visible; }
+    .page { height: 100vh; display: flex; flex-direction: column; padding: 16px 20px 12px; }
 
-    .legend { max-width: 500px; margin: 40px auto 0; background: #fff; border-radius: 10px; padding: 20px; border: 1px solid #dce8f5; }
-    .legend h3 { color: #1a56a0; margin-bottom: 12px; }
-    .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; }
-    .legend-box { width: 24px; height: 18px; border-radius: 4px; flex-shrink: 0; }
+    h1 { text-align: center; color: #1a56a0; font-size: 1.2rem; margin-bottom: 2px; }
+    p.sub { text-align: center; color: #666; font-size: 0.78rem; margin-bottom: 10px; }
+
+    .tree-wrap { flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .tree { display: flex; flex-direction: column; align-items: center; transform-origin: top center; }
+
+    .node { padding: 5px 14px; border-radius: 6px; font-family: monospace; font-size: 0.78rem; font-weight: bold; white-space: nowrap; }
+    .root { background: #1a56a0; color: #fff; }
+    .lvl1 { background: #4a90d9; color: #fff; }
+    .lvl2 { background: #fff; color: #333; border: 2px solid #4a90d9; font-weight: normal; }
+    .val  { background: #e8f4ff; color: #1a56a0; border: 1px dashed #4a90d9; font-weight: normal; font-size: 0.72rem; }
+
+    .v-line { width: 2px; height: 20px; background: #4a90d9; margin: 0 auto; }
+    .v-dash { width: 2px; height: 20px; background: repeating-linear-gradient(to bottom,#4a90d9 0,#4a90d9 4px,transparent 4px,transparent 7px); margin: 0 auto; }
+
+    .children { display: flex; align-items: flex-start; justify-content: center; position: relative; }
+    .children::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: #4a90d9; }
+
+    .branch { display: flex; flex-direction: column; align-items: center; padding: 0 14px; }
+    .drop { width: 2px; height: 20px; background: #4a90d9; }
+
+    .legend { display: flex; flex-wrap: wrap; gap: 6px 20px; justify-content: center; padding: 8px 10px; background: #fff; border-radius: 8px; border: 1px solid #dce8f5; margin-top: 10px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: #555; }
+    .lbox { width: 18px; height: 14px; border-radius: 3px; flex-shrink: 0; }
   </style>
 </head>
 <body>
+<div class="page">
 
   <h1>📒 Address Book — XML Structure</h1>
   <p class="sub">How the data is organised in <code>contacts.xml</code></p>
 
-  <svg width="600" height="340" viewBox="0 0 600 340">
-    <!-- Lines first so nodes render on top -->
+  <div class="tree-wrap">
+    <div class="tree">
 
-    <!-- root -> contact -->
-    <line x1="300" y1="52" x2="300" y2="100" stroke="#4a90d9" stroke-width="2"/>
+      <div class="node root">&lt;addressbook&gt;</div>
+      <div class="v-line"></div>
 
-    <!-- contact -> horizontal bar -->
-    <line x1="300" y1="132" x2="300" y2="160" stroke="#4a90d9" stroke-width="2"/>
-    <!-- horizontal bar -->
-    <line x1="100" y1="160" x2="500" y2="160" stroke="#4a90d9" stroke-width="2"/>
-    <!-- bar -> name -->
-    <line x1="100" y1="160" x2="100" y2="200" stroke="#4a90d9" stroke-width="2"/>
-    <!-- bar -> phone -->
-    <line x1="300" y1="160" x2="300" y2="200" stroke="#4a90d9" stroke-width="2"/>
-    <!-- bar -> email -->
-    <line x1="500" y1="160" x2="500" y2="200" stroke="#4a90d9" stroke-width="2"/>
+      <div class="node lvl1">&lt;contact&gt; — repeats 5 times</div>
+      <div class="v-line"></div>
 
-    <!-- name -> value -->
-    <line x1="100" y1="232" x2="100" y2="270" stroke="#4a90d9" stroke-width="2" stroke-dasharray="4,3"/>
-    <!-- phone -> value -->
-    <line x1="300" y1="232" x2="300" y2="270" stroke="#4a90d9" stroke-width="2" stroke-dasharray="4,3"/>
-    <!-- email -> value -->
-    <line x1="500" y1="232" x2="500" y2="270" stroke="#4a90d9" stroke-width="2" stroke-dasharray="4,3"/>
+      <div class="children">
 
-    <!-- ROOT node -->
-    <rect x="190" y="10" width="220" height="42" rx="8" fill="#1a56a0"/>
-    <text x="300" y="36" text-anchor="middle" fill="white" font-size="15" font-weight="bold" font-family="Arial">&lt;addressbook&gt;</text>
+        <div class="branch">
+          <div class="drop"></div>
+          <div class="node lvl2">&lt;name&gt;</div>
+          <div class="v-dash"></div>
+          <div class="node val">Chukwuemeka Obi</div>
+        </div>
 
-    <!-- contact node -->
-    <rect x="170" y="100" width="260" height="32" rx="8" fill="#4a90d9"/>
-    <text x="300" y="121" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="Arial">&lt;contact&gt;  ×5</text>
+        <div class="branch">
+          <div class="drop"></div>
+          <div class="node lvl2">&lt;phone&gt;</div>
+          <div class="v-dash"></div>
+          <div class="node val">+234-803-456-7890</div>
+        </div>
 
-    <!-- name node -->
-    <rect x="30" y="200" width="140" height="32" rx="8" fill="white" stroke="#4a90d9" stroke-width="2"/>
-    <text x="100" y="221" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;name&gt;</text>
+        <div class="branch">
+          <div class="drop"></div>
+          <div class="node lvl2">&lt;email&gt;</div>
+          <div class="v-dash"></div>
+          <div class="node val">emeka.obi@gmail.com</div>
+        </div>
 
-    <!-- phone node -->
-    <rect x="220" y="200" width="160" height="32" rx="8" fill="white" stroke="#4a90d9" stroke-width="2"/>
-    <text x="300" y="221" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;phone&gt;</text>
-
-    <!-- email node -->
-    <rect x="420" y="200" width="140" height="32" rx="8" fill="white" stroke="#4a90d9" stroke-width="2"/>
-    <text x="500" y="221" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;email&gt;</text>
-
-    <!-- name value -->
-    <rect x="18" y="270" width="164" height="32" rx="8" fill="#e8f4ff" stroke="#4a90d9" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="100" y="291" text-anchor="middle" fill="#1a56a0" font-size="11" font-family="Arial">Chukwuemeka Obi</text>
-
-    <!-- phone value -->
-    <rect x="200" y="270" width="200" height="32" rx="8" fill="#e8f4ff" stroke="#4a90d9" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="300" y="291" text-anchor="middle" fill="#1a56a0" font-size="11" font-family="Arial">+234-803-456-7890</text>
-
-    <!-- email value -->
-    <rect x="408" y="270" width="184" height="32" rx="8" fill="#e8f4ff" stroke="#4a90d9" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="500" y="291" text-anchor="middle" fill="#1a56a0" font-size="11" font-family="Arial">emeka.obi@gmail.com</text>
-  </svg>
-
-  <div class="legend">
-    <h3>🔑 Legend</h3>
-    <div class="legend-item"><div class="legend-box" style="background:#1a56a0;"></div> Root element — wraps everything</div>
-    <div class="legend-item"><div class="legend-box" style="background:#4a90d9;"></div> Repeating element — one per contact (×5)</div>
-    <div class="legend-item"><div class="legend-box" style="background:#fff; border:2px solid #4a90d9;"></div> Child element — holds one piece of data</div>
-    <div class="legend-item"><div class="legend-box" style="background:#e8f4ff; border:1px dashed #4a90d9;"></div> Example value stored inside the element</div>
+      </div>
+    </div>
   </div>
 
+  <div class="legend">
+    <div class="legend-item"><div class="lbox" style="background:#1a56a0;"></div> Root — wraps everything</div>
+    <div class="legend-item"><div class="lbox" style="background:#4a90d9;"></div> Repeating — one per contact (×5)</div>
+    <div class="legend-item"><div class="lbox" style="background:#fff;border:2px solid #4a90d9;"></div> Child element</div>
+    <div class="legend-item"><div class="lbox" style="background:#e8f4ff;border:1px dashed #4a90d9;"></div> Example value</div>
+  </div>
+
+</div>
+<script>
+  function fitTree() {
+    const wrap = document.querySelector('.tree-wrap');
+    const tree = document.querySelector('.tree');
+    tree.style.transform = 'scale(1)';
+    const scale = Math.min(wrap.clientWidth / tree.scrollWidth, wrap.clientHeight / tree.scrollHeight, 1);
+    tree.style.transform = `scale(${scale})`;
+  }
+  fitTree();
+  window.addEventListener('resize', fitTree);
+</script>
 </body>
 </html>

@@ -5,99 +5,106 @@
   <title>Movie Catalog – JSON Diagram</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; background: #0f0f0f; color: #eee; padding: 40px 20px; }
-    h1 { text-align: center; color: #e50914; margin-bottom: 6px; }
-    p.sub { text-align: center; color: #888; margin-bottom: 20px; font-size: 0.9rem; }
+    html, body { height: 100%; font-family: Arial, sans-serif; background: #0f0f0f; color: #eee; overflow: hidden; }
 
-    svg { display: block; margin: 0 auto; overflow: visible; }
+    .page { height: 100vh; display: flex; flex-direction: column; padding: 16px 20px 12px; }
 
-    .legend { max-width: 500px; margin: 40px auto 0; background: #1a1a1a; border-radius: 10px; padding: 20px; border: 1px solid #333; }
-    .legend h3 { color: #e50914; margin-bottom: 12px; }
-    .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; color: #ccc; }
-    .legend-box { width: 24px; height: 18px; border-radius: 4px; flex-shrink: 0; }
+    h1 { text-align: center; color: #e50914; font-size: 1.2rem; margin-bottom: 2px; }
+    p.sub { text-align: center; color: #888; font-size: 0.78rem; margin-bottom: 10px; }
+
+    .tree-wrap { flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .tree { display: flex; flex-direction: column; align-items: center; transform-origin: top center; }
+
+    .node { padding: 5px 14px; border-radius: 6px; font-family: monospace; font-size: 0.78rem; font-weight: bold; white-space: nowrap; }
+    .root { background: #e50914; color: #fff; }
+    .lvl1 { background: #b00610; color: #fff; }
+    .lvl2 { background: #1a1a1a; color: #eee; border: 2px solid #e50914; font-weight: normal; }
+    .val  { background: #2a2a2a; color: #f5c518; border: 1px dashed #e50914; font-weight: normal; font-size: 0.72rem; }
+
+    .v-line { width: 2px; height: 20px; background: #e50914; margin: 0 auto; }
+    .v-dash { width: 2px; height: 20px; background: repeating-linear-gradient(to bottom,#e50914 0,#e50914 4px,transparent 4px,transparent 7px); margin: 0 auto; }
+
+    .children { display: flex; align-items: flex-start; justify-content: center; position: relative; }
+    .children::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: #e50914; }
+
+    .branch { display: flex; flex-direction: column; align-items: center; padding: 0 14px; }
+    .drop { width: 2px; height: 20px; background: #e50914; }
+
+    .legend { display: flex; flex-wrap: wrap; gap: 6px 20px; justify-content: center; padding: 8px 10px; background: #1a1a1a; border-radius: 8px; border: 1px solid #333; margin-top: 10px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: #ccc; }
+    .lbox { width: 18px; height: 14px; border-radius: 3px; flex-shrink: 0; }
   </style>
 </head>
 <body>
+<div class="page">
 
   <h1>🎬 Movie Catalog — JSON Structure</h1>
   <p class="sub">How the data is organised in <code>movies.json</code></p>
 
-  <svg width="660" height="380" viewBox="0 0 660 380">
+  <div class="tree-wrap">
+    <div class="tree">
 
-    <!-- root -> movies array -->
-    <line x1="330" y1="42" x2="330" y2="90" stroke="#e50914" stroke-width="2"/>
-    <!-- movies array -> movie object -->
-    <line x1="330" y1="122" x2="330" y2="170" stroke="#e50914" stroke-width="2"/>
-    <!-- movie object -> horizontal bar -->
-    <line x1="330" y1="202" x2="330" y2="230" stroke="#e50914" stroke-width="2"/>
+      <div class="node root">{ } Root Object</div>
+      <div class="v-line"></div>
 
-    <!-- horizontal bar -->
-    <line x1="80" y1="230" x2="580" y2="230" stroke="#e50914" stroke-width="2"/>
+      <div class="node lvl1">"movies" : [ ] — array of 6 movie objects</div>
+      <div class="v-line"></div>
 
-    <!-- bar -> each field -->
-    <line x1="80"  y1="230" x2="80"  y2="270" stroke="#e50914" stroke-width="2"/>
-    <line x1="247" y1="230" x2="247" y2="270" stroke="#e50914" stroke-width="2"/>
-    <line x1="413" y1="230" x2="413" y2="270" stroke="#e50914" stroke-width="2"/>
-    <line x1="580" y1="230" x2="580" y2="270" stroke="#e50914" stroke-width="2"/>
+      <div class="node lvl1">{ } Movie Object — repeats 6 times</div>
+      <div class="v-line"></div>
 
-    <!-- field -> value -->
-    <line x1="80"  y1="302" x2="80"  y2="330" stroke="#e50914" stroke-width="2" stroke-dasharray="4,3"/>
-    <line x1="247" y1="302" x2="247" y2="330" stroke="#e50914" stroke-width="2" stroke-dasharray="4,3"/>
-    <line x1="413" y1="302" x2="413" y2="330" stroke="#e50914" stroke-width="2" stroke-dasharray="4,3"/>
-    <line x1="580" y1="302" x2="580" y2="330" stroke="#e50914" stroke-width="2" stroke-dasharray="4,3"/>
+      <div class="children">
 
-    <!-- ROOT object -->
-    <rect x="210" y="10" width="240" height="32" rx="8" fill="#e50914"/>
-    <text x="330" y="31" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="Arial">{ } Root Object</text>
+        <div class="branch">
+          <div class="drop"></div>
+          <div class="node lvl2">"title"</div>
+          <div class="v-dash"></div>
+          <div class="node val">"King of Boys"</div>
+        </div>
 
-    <!-- movies array -->
-    <rect x="160" y="90" width="340" height="32" rx="8" fill="#b00610"/>
-    <text x="330" y="111" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="Arial">"movies": [ ]  Array ×6 items</text>
+        <div class="branch">
+          <div class="drop"></div>
+          <div class="node lvl2">"genre"</div>
+          <div class="v-dash"></div>
+          <div class="node val">"Thriller"</div>
+        </div>
 
-    <!-- movie object -->
-    <rect x="185" y="170" width="290" height="32" rx="8" fill="#b00610"/>
-    <text x="330" y="191" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="Arial">{ } Movie Object</text>
+        <div class="branch">
+          <div class="drop"></div>
+          <div class="node lvl2">"year"</div>
+          <div class="v-dash"></div>
+          <div class="node val">2018</div>
+        </div>
 
-    <!-- title -->
-    <rect x="18" y="270" width="124" height="32" rx="8" fill="#1a1a1a" stroke="#e50914" stroke-width="2"/>
-    <text x="80" y="291" text-anchor="middle" fill="#eee" font-size="13" font-family="Arial">"title"</text>
+        <div class="branch">
+          <div class="drop"></div>
+          <div class="node lvl2">"rating"</div>
+          <div class="v-dash"></div>
+          <div class="node val">8.5</div>
+        </div>
 
-    <!-- genre -->
-    <rect x="185" y="270" width="124" height="32" rx="8" fill="#1a1a1a" stroke="#e50914" stroke-width="2"/>
-    <text x="247" y="291" text-anchor="middle" fill="#eee" font-size="13" font-family="Arial">"genre"</text>
-
-    <!-- year -->
-    <rect x="351" y="270" width="124" height="32" rx="8" fill="#1a1a1a" stroke="#e50914" stroke-width="2"/>
-    <text x="413" y="291" text-anchor="middle" fill="#eee" font-size="13" font-family="Arial">"year"</text>
-
-    <!-- rating -->
-    <rect x="518" y="270" width="124" height="32" rx="8" fill="#1a1a1a" stroke="#e50914" stroke-width="2"/>
-    <text x="580" y="291" text-anchor="middle" fill="#eee" font-size="13" font-family="Arial">"rating"</text>
-
-    <!-- title value -->
-    <rect x="10" y="330" width="140" height="32" rx="8" fill="#2a2a2a" stroke="#e50914" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="80" y="351" text-anchor="middle" fill="#f5c518" font-size="11" font-family="Arial">"King of Boys"</text>
-
-    <!-- genre value -->
-    <rect x="185" y="330" width="124" height="32" rx="8" fill="#2a2a2a" stroke="#e50914" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="247" y="351" text-anchor="middle" fill="#f5c518" font-size="11" font-family="Arial">"Thriller"</text>
-
-    <!-- year value -->
-    <rect x="363" y="330" width="100" height="32" rx="8" fill="#2a2a2a" stroke="#e50914" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="413" y="351" text-anchor="middle" fill="#f5c518" font-size="11" font-family="Arial">2018</text>
-
-    <!-- rating value -->
-    <rect x="530" y="330" width="100" height="32" rx="8" fill="#2a2a2a" stroke="#e50914" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="580" y="351" text-anchor="middle" fill="#f5c518" font-size="11" font-family="Arial">8.5</text>
-  </svg>
-
-  <div class="legend">
-    <h3>🔑 Legend</h3>
-    <div class="legend-item"><div class="legend-box" style="background:#e50914;"></div> Root object — the whole JSON file</div>
-    <div class="legend-item"><div class="legend-box" style="background:#b00610;"></div> Array / Object — groups the movie items</div>
-    <div class="legend-item"><div class="legend-box" style="background:#1a1a1a; border:2px solid #e50914;"></div> Key — a field name inside each movie</div>
-    <div class="legend-item"><div class="legend-box" style="background:#2a2a2a; border:1px dashed #e50914;"></div> Example value stored for that key</div>
+      </div>
+    </div>
   </div>
 
+  <div class="legend">
+    <div class="legend-item"><div class="lbox" style="background:#e50914;"></div> Root object</div>
+    <div class="legend-item"><div class="lbox" style="background:#b00610;"></div> Array / Object</div>
+    <div class="legend-item"><div class="lbox" style="background:#1a1a1a;border:2px solid #e50914;"></div> Key (field name)</div>
+    <div class="legend-item"><div class="lbox" style="background:#2a2a2a;border:1px dashed #e50914;"></div> Example value</div>
+  </div>
+
+</div>
+<script>
+  function fitTree() {
+    const wrap = document.querySelector('.tree-wrap');
+    const tree = document.querySelector('.tree');
+    tree.style.transform = 'scale(1)';
+    const scale = Math.min(wrap.clientWidth / tree.scrollWidth, wrap.clientHeight / tree.scrollHeight, 1);
+    tree.style.transform = `scale(${scale})`;
+  }
+  fitTree();
+  window.addEventListener('resize', fitTree);
+</script>
 </body>
 </html>
