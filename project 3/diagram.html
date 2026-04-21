@@ -5,70 +5,78 @@
   <title>Recipe Book – XML Diagram</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; background: #fffaf4; padding: 40px 20px 60px; }
-    h1 { text-align: center; color: #e65c00; margin-bottom: 6px; }
-    p.sub { text-align: center; color: #888; margin-bottom: 40px; font-size: 0.9rem; }
 
-    /* ── tree container ── */
-    .tree { display: flex; flex-direction: column; align-items: center; }
+    html, body {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background: #fffaf4;
+      overflow: hidden;
+    }
 
-    /* ── generic node ── */
+    .page {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 20px 12px;
+    }
+
+    h1 { text-align: center; color: #e65c00; font-size: 1.2rem; margin-bottom: 2px; }
+    p.sub { text-align: center; color: #888; font-size: 0.78rem; margin-bottom: 10px; }
+
+    /* ── scales the whole tree to fit ── */
+    .tree-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform-origin: top center;
+    }
+
+    /* ── nodes ── */
     .node {
-      padding: 9px 20px;
-      border-radius: 8px;
+      padding: 5px 14px;
+      border-radius: 6px;
       font-family: monospace;
-      font-size: 0.95rem;
+      font-size: 0.78rem;
       font-weight: bold;
       white-space: nowrap;
-      position: relative;
-      z-index: 1;
     }
-    .root   { background: #e65c00; color: #fff; }
-    .lvl1   { background: #f07b2a; color: #fff; }
-    .lvl2   { background: #fff; color: #333; border: 2px solid #e65c00; font-weight: normal; }
-    .lvl3   { background: #fff8f0; color: #444; border: 2px solid #f0a060; font-weight: normal; font-size: 0.88rem; }
-    .val    { background: #fff3e0; color: #b84a00; border: 1px dashed #e65c00; font-weight: normal; font-size: 0.85rem; }
-    .val3   { background: #fff3e0; color: #b84a00; border: 1px dashed #f0a060; font-weight: normal; font-size: 0.85rem; }
+    .root { background: #e65c00; color: #fff; }
+    .lvl1 { background: #f07b2a; color: #fff; font-size: 0.72rem; }
+    .lvl2 { background: #fff; color: #333; border: 2px solid #e65c00; font-weight: normal; }
+    .lvl3 { background: #fff8f0; color: #444; border: 2px solid #f0a060; font-weight: normal; font-size: 0.72rem; }
+    .val  { background: #fff3e0; color: #b84a00; border: 1px dashed #e65c00; font-weight: normal; font-size: 0.72rem; }
+    .val3 { background: #fff3e0; color: #b84a00; border: 1px dashed #f0a060; font-weight: normal; font-size: 0.72rem; }
 
     .badge {
       display: inline-block;
       background: #c44a00; color: #fff;
-      font-size: 0.7rem; padding: 2px 7px;
-      border-radius: 4px; margin-left: 8px;
+      font-size: 0.62rem; padding: 1px 5px;
+      border-radius: 3px; margin-left: 6px;
       font-family: Arial, sans-serif;
       vertical-align: middle;
     }
 
-    /* ── vertical connector ── */
-    .v-line {
-      width: 2px; height: 36px;
-      background: #e65c00;
-      margin: 0 auto;
-    }
-    .v-line-sub {
-      width: 2px; height: 36px;
-      background: #f0a060;
-      margin: 0 auto;
-    }
-    .v-dash {
-      width: 2px; height: 36px;
-      background: repeating-linear-gradient(to bottom, #e65c00 0px, #e65c00 5px, transparent 5px, transparent 9px);
-      margin: 0 auto;
-    }
-    .v-dash-sub {
-      width: 2px; height: 36px;
-      background: repeating-linear-gradient(to bottom, #f0a060 0px, #f0a060 5px, transparent 5px, transparent 9px);
-      margin: 0 auto;
-    }
+    /* ── connectors ── */
+    .v-line     { width: 2px; height: 20px; background: #e65c00; margin: 0 auto; }
+    .v-dash     { width: 2px; height: 20px; background: repeating-linear-gradient(to bottom,#e65c00 0,#e65c00 4px,transparent 4px,transparent 7px); margin: 0 auto; }
+    .v-dash-sub { width: 2px; height: 20px; background: repeating-linear-gradient(to bottom,#f0a060 0,#f0a060 4px,transparent 4px,transparent 7px); margin: 0 auto; }
+    .v-sub      { width: 2px; height: 20px; background: #f0a060; margin: 0 auto; }
 
-    /* ── row of children with horizontal connector ── */
+    /* ── children rows ── */
     .children {
       display: flex;
       align-items: flex-start;
       justify-content: center;
       position: relative;
     }
-    /* the horizontal bar drawn via ::before */
     .children::before {
       content: '';
       position: absolute;
@@ -78,128 +86,127 @@
     }
     .children-sub::before { background: #f0a060; }
 
-    /* each branch inside a children row */
-    .branch {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 0 18px;
-    }
-    /* the short vertical drop from the h-bar to the node */
-    .branch-drop {
-      width: 2px; height: 36px;
-      background: #e65c00;
-    }
-    .branch-drop-sub {
-      width: 2px; height: 36px;
-      background: #f0a060;
-    }
+    .branch { display: flex; flex-direction: column; align-items: center; padding: 0 10px; }
+    .drop     { width: 2px; height: 20px; background: #e65c00; }
+    .drop-sub { width: 2px; height: 20px; background: #f0a060; }
 
     /* ── legend ── */
     .legend {
-      max-width: 560px; margin: 50px auto 0;
-      background: #fff; border-radius: 10px;
-      padding: 20px; border: 1px solid #f0dcc8;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 20px;
+      justify-content: center;
+      padding: 8px 10px;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #f0dcc8;
+      margin-top: 10px;
     }
-    .legend h3 { color: #e65c00; margin-bottom: 12px; }
-    .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; }
-    .lbox { width: 24px; height: 18px; border-radius: 4px; flex-shrink: 0; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: #555; }
+    .lbox { width: 18px; height: 14px; border-radius: 3px; flex-shrink: 0; }
   </style>
 </head>
 <body>
+<div class="page">
 
-<h1>🍽️ Recipe Book — XML Structure</h1>
-<p class="sub">How the data is organised in <code>recipes.xml</code></p>
+  <h1>🍽️ Recipe Book — XML Structure</h1>
+  <p class="sub">How the data is organised in <code>recipes.xml</code></p>
 
-<div class="tree">
+  <div class="tree-wrap">
+    <div class="tree">
 
-  <!-- ROOT -->
-  <div class="node root">&lt;recipes&gt;</div>
-  <div class="v-line"></div>
-
-  <!-- RECIPE -->
-  <div class="node lvl1">&lt;recipe&gt; — repeats 4 times, each has a unique <span class="badge">id</span></div>
-  <div class="v-line"></div>
-
-  <!-- LEVEL-2 ROW -->
-  <div class="children">
-
-    <!-- title -->
-    <div class="branch">
-      <div class="branch-drop"></div>
-      <div class="node lvl2">&lt;title&gt;</div>
-      <div class="v-dash"></div>
-      <div class="node val">Jollof Rice</div>
-    </div>
-
-    <!-- category -->
-    <div class="branch">
-      <div class="branch-drop"></div>
-      <div class="node lvl2">&lt;category&gt;</div>
-      <div class="v-dash"></div>
-      <div class="node val">Main Course</div>
-    </div>
-
-    <!-- cookingtime -->
-    <div class="branch">
-      <div class="branch-drop"></div>
-      <div class="node lvl2">&lt;cookingtime&gt;</div>
-      <div class="v-dash"></div>
-      <div class="node val">45 minutes</div>
-    </div>
-
-    <!-- ingredients -->
-    <div class="branch">
-      <div class="branch-drop"></div>
-      <div class="node lvl2">&lt;ingredients&gt;</div>
+      <div class="node root">&lt;recipes&gt;</div>
       <div class="v-line"></div>
-      <!-- sub-row -->
-      <div class="children children-sub">
+
+      <div class="node lvl1">&lt;recipe&gt; — repeats 4 times, each has a unique <span class="badge">id</span></div>
+      <div class="v-line"></div>
+
+      <div class="children">
+
         <div class="branch">
-          <div class="branch-drop-sub"></div>
-          <div class="node lvl3">&lt;item&gt;</div>
-          <div class="v-dash-sub"></div>
-          <div class="node val3">2 cups rice</div>
+          <div class="drop"></div>
+          <div class="node lvl2">&lt;title&gt;</div>
+          <div class="v-dash"></div>
+          <div class="node val">Jollof Rice</div>
         </div>
+
         <div class="branch">
-          <div class="branch-drop-sub"></div>
-          <div class="node lvl3">&lt;item&gt; &times;n</div>
+          <div class="drop"></div>
+          <div class="node lvl2">&lt;category&gt;</div>
+          <div class="v-dash"></div>
+          <div class="node val">Main Course</div>
         </div>
+
+        <div class="branch">
+          <div class="drop"></div>
+          <div class="node lvl2">&lt;cookingtime&gt;</div>
+          <div class="v-dash"></div>
+          <div class="node val">45 minutes</div>
+        </div>
+
+        <div class="branch">
+          <div class="drop"></div>
+          <div class="node lvl2">&lt;ingredients&gt;</div>
+          <div class="v-sub"></div>
+          <div class="children children-sub">
+            <div class="branch">
+              <div class="drop-sub"></div>
+              <div class="node lvl3">&lt;item&gt;</div>
+              <div class="v-dash-sub"></div>
+              <div class="node val3">2 cups rice</div>
+            </div>
+            <div class="branch">
+              <div class="drop-sub"></div>
+              <div class="node lvl3">&lt;item&gt; &times;n</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="branch">
+          <div class="drop"></div>
+          <div class="node lvl2">&lt;steps&gt;</div>
+          <div class="v-sub"></div>
+          <div class="children children-sub">
+            <div class="branch">
+              <div class="drop-sub"></div>
+              <div class="node lvl3">&lt;step&gt;</div>
+              <div class="v-dash-sub"></div>
+              <div class="node val3">Blend tomatoes…</div>
+            </div>
+            <div class="branch">
+              <div class="drop-sub"></div>
+              <div class="node lvl3">&lt;step&gt; &times;n</div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
-
-    <!-- steps -->
-    <div class="branch">
-      <div class="branch-drop"></div>
-      <div class="node lvl2">&lt;steps&gt;</div>
-      <div class="v-line"></div>
-      <!-- sub-row -->
-      <div class="children children-sub">
-        <div class="branch">
-          <div class="branch-drop-sub"></div>
-          <div class="node lvl3">&lt;step&gt;</div>
-          <div class="v-dash-sub"></div>
-          <div class="node val3">Blend tomatoes…</div>
-        </div>
-        <div class="branch">
-          <div class="branch-drop-sub"></div>
-          <div class="node lvl3">&lt;step&gt; &times;n</div>
-        </div>
-      </div>
-    </div>
-
   </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="lbox" style="background:#e65c00;"></div> Root — wraps all recipes</div>
+    <div class="legend-item"><div class="lbox" style="background:#f07b2a;"></div> Repeating — one per recipe (×4)</div>
+    <div class="legend-item"><div class="lbox" style="background:#fff;border:2px solid #e65c00;"></div> Child element</div>
+    <div class="legend-item"><div class="lbox" style="background:#fff8f0;border:2px solid #f0a060;"></div> Nested child</div>
+    <div class="legend-item"><div class="lbox" style="background:#fff3e0;border:1px dashed #e65c00;"></div> Example value</div>
+  </div>
+
 </div>
 
-<!-- LEGEND -->
-<div class="legend">
-  <h3>🔑 Legend</h3>
-  <div class="legend-item"><div class="lbox" style="background:#e65c00;"></div> Root element — wraps all recipes</div>
-  <div class="legend-item"><div class="lbox" style="background:#f07b2a;"></div> Repeating element — one per recipe (×4), has an <strong>id</strong> attribute</div>
-  <div class="legend-item"><div class="lbox" style="background:#fff; border:2px solid #e65c00;"></div> Child element — one piece of recipe info</div>
-  <div class="legend-item"><div class="lbox" style="background:#fff8f0; border:2px solid #f0a060;"></div> Nested child — repeats for each ingredient / step</div>
-  <div class="legend-item"><div class="lbox" style="background:#fff3e0; border:1px dashed #e65c00;"></div> Example value stored inside the element</div>
-</div>
-
+<script>
+  // Scale the tree down if it's wider or taller than its container
+  function fitTree() {
+    const wrap = document.querySelector('.tree-wrap');
+    const tree = document.querySelector('.tree');
+    tree.style.transform = 'scale(1)';
+    const scaleX = wrap.clientWidth  / tree.scrollWidth;
+    const scaleY = wrap.clientHeight / tree.scrollHeight;
+    const scale  = Math.min(scaleX, scaleY, 1);
+    tree.style.transform = `scale(${scale})`;
+  }
+  fitTree();
+  window.addEventListener('resize', fitTree);
+</script>
 </body>
 </html>
