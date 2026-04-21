@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="contacts.xsl"?>
+
+<!-- My address book - stores all my contacts -->
 <addressbook>
+
+  <!-- Contact 1 -->
   <contact>
     <name>Chukwuemeka Obi</name>
     <phone>+234-803-456-7890</phone>
     <email>emeka.obi@gmail.com</email>
   </contact>
+
+  <!-- Contact 2 -->
   <contact>
     <name>Fatima Bello</name>
     <phone>+234-806-123-4567</phone>
     <email>fatima.bello@yahoo.com</email>
   </contact>
+
+  <!-- Contact 3 -->
   <contact>
     <name>Adaeze Nwosu</name>
     <phone>+234-810-987-6543</phone>
     <email>adaeze.nwosu@gmail.com</email>
   </contact>
+
+  <!-- Contact 4 -->
   <contact>
     <name>Tunde Adeyemi</name>
     <phone>+234-815-234-5678</phone>
     <email>tunde.adeyemi@outlook.com</email>
   </contact>
+
+  <!-- Contact 5 -->
   <contact>
     <name>Ngozi Eze</name>
     <phone>+234-802-345-6789</phone>
     <email>ngozi.eze@gmail.com</email>
   </contact>
+
 </addressbook>

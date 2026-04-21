@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="recipes.xsl"?>
+
+<!-- My Nigerian recipe book - 4 recipes stored here -->
 <recipes>
 
+  <!-- Recipe 1: the classic party rice everyone loves -->
   <recipe id="1">
     <title>Jollof Rice</title>
     <category>Main Course</category>
@@ -25,6 +28,7 @@
     </steps>
   </recipe>
 
+  <!-- Recipe 2: rich and filling soup, best with pounded yam -->
   <recipe id="2">
     <title>Egusi Soup</title>
     <category>Main Course</category>
@@ -48,6 +52,7 @@
     </steps>
   </recipe>
 
+  <!-- Recipe 3: popular street food breakfast in Lagos -->
   <recipe id="3">
     <title>Akara (Bean Cakes)</title>
     <category>Breakfast</category>
@@ -68,6 +73,7 @@
     </steps>
   </recipe>
 
+  <!-- Recipe 4: a Cross River classic, very nutritious -->
   <recipe id="4">
     <title>Vegetable Soup (Edikang Ikong)</title>
     <category>Vegetarian</category>

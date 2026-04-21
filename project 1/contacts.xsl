@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This XSL file styles the contacts.xml file when opened directly in a browser -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output method="html"/>
 
+  <!-- Match the root and build the HTML page -->
   <xsl:template match="/">
     <html>
     <head>
       <title>Address Book</title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
       <style>
         body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; }
         h1   { color: #333; }
@@ -19,8 +22,12 @@
     </head>
     <body>
       <h1><i class="fa fa-address-book"></i> Address Book</h1>
+
+      <!-- Table with all contacts -->
       <table>
         <tr><th>Name</th><th>Phone</th><th>Email</th></tr>
+
+        <!-- Loop through each contact in the XML -->
         <xsl:for-each select="addressbook/contact">
           <tr>
             <td><xsl:value-of select="name"/></td>
@@ -28,8 +35,10 @@
             <td><a href="mailto:{email}"><xsl:value-of select="email"/></a></td>
           </tr>
         </xsl:for-each>
+
       </table>
     </body>
     </html>
   </xsl:template>
+
 </xsl:stylesheet>

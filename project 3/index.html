@@ -3,17 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <title>Recipe Book</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; font-family: Arial, sans-serif; background-color: #fffaf4; overflow: hidden; }
+
     .page { height: 100vh; display: flex; flex-direction: column; padding: 20px 40px 16px; }
-    h1    { color: #e65c00; font-size: 1.6rem; margin-bottom: 4px; }
-    h1 i  { margin-right: 10px; }
+
+    h1   { color: #e65c00; font-size: 1.6rem; margin-bottom: 4px; }
+    h1 i { margin-right: 10px; }
     p.sub { color: #888; margin-bottom: 14px; font-size: 0.9rem; }
+
+    /* search and category filter next to each other */
     .controls { display: flex; gap: 10px; margin-bottom: 14px; }
-    input, select { flex: 1; padding: 10px 14px; border: 1px solid #e0c8a8; font-size: 1rem; background-color: #fff; outline: none; }
+    input, select {
+      flex: 1; padding: 10px 14px;
+      border: 1px solid #e0c8a8;
+      font-size: 1rem; background-color: #fff; outline: none;
+    }
+
+    /* recipe cards scroll inside this wrapper */
     .grid-wrap { flex: 1; overflow: auto; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+
     .card { background-color: #fff; border: 1px solid #f0dcc8; padding: 18px; }
     .card h2  { color: #e65c00; margin-bottom: 6px; font-size: 1.05rem; }
     .meta     { font-size: 0.82rem; color: #999; margin-bottom: 12px; }
@@ -21,86 +33,96 @@
     h4        { font-size: 0.85rem; color: #555; margin: 10px 0 5px; text-transform: uppercase; }
     ul, ol    { padding-left: 18px; }
     li        { font-size: 0.88rem; margin-bottom: 3px; color: #444; }
+
     #noResult { text-align: center; color: #aaa; margin-top: 40px; display: none; }
   </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 <div class="page">
+
   <h1><i class="fa fa-utensils"></i> Recipe Book</h1>
   <p class="sub">Browse recipes or search by name and category</p>
+
+  <!-- filter controls -->
   <div class="controls">
-    <input type="text" id="search" placeholder="Search recipe…" oninput="filter()">
+    <input type="text" id="search" placeholder="Search recipe..." oninput="filter()">
     <select id="category" onchange="filter()">
       <option value="">All Categories</option>
     </select>
   </div>
+
+  <!-- recipe cards go in here -->
   <div class="grid-wrap">
     <div class="grid" id="grid"></div>
     <p id="noResult">No recipes found.</p>
   </div>
 
-  <script>
-    let recipes = [];
+</div>
 
-    fetch("recipes.xml")
-      .then(r => r.text())
-      .then(xmlText => {
-        const xml = new DOMParser().parseFromString(xmlText, "application/xml");
+<script>
+  // all recipes loaded from the XML
+  let recipes = [];
 
-        recipes = [...xml.querySelectorAll("recipe")].map(r => ({
-          title:    r.querySelector("title").textContent,
-          category: r.querySelector("category").textContent,
-          time:     r.querySelector("cookingtime").textContent,
-          ingredients: [...r.querySelectorAll("ingredients item")].map(i => i.textContent),
-          steps:       [...r.querySelectorAll("steps step")].map(s => s.textContent)
-        }));
+  // read the XML file and pull out the recipe data
+  fetch("recipes.xml")
+    .then(r => r.text())
+    .then(xmlText => {
+      const xml = new DOMParser().parseFromString(xmlText, "application/xml");
 
-        // populate category dropdown
-        const cats = [...new Set(recipes.map(r => r.category))].sort();
-        cats.forEach(c => {
-          const opt = document.createElement("option");
-          opt.value = opt.textContent = c;
-          document.getElementById("category").appendChild(opt);
-        });
+      recipes = [...xml.querySelectorAll("recipe")].map(r => ({
+        title:       r.querySelector("title").textContent,
+        category:    r.querySelector("category").textContent,
+        time:        r.querySelector("cookingtime").textContent,
+        ingredients: [...r.querySelectorAll("ingredients item")].map(i => i.textContent),
+        steps:       [...r.querySelectorAll("steps step")].map(s => s.textContent)
+      }));
 
-        render(recipes);
+      // build the category dropdown from whatever categories exist in the data
+      const cats = [...new Set(recipes.map(r => r.category))].sort();
+      cats.forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = opt.textContent = c;
+        document.getElementById("category").appendChild(opt);
       });
 
-    function render(list) {
-      const grid = document.getElementById("grid");
-      const noResult = document.getElementById("noResult");
+      render(recipes);
+    });
 
-      if (list.length === 0) {
-        grid.innerHTML = "";
-        noResult.style.display = "block";
-        return;
-      }
+  // builds the recipe cards from the given list
+  function render(list) {
+    const grid = document.getElementById("grid");
+    const noResult = document.getElementById("noResult");
 
-      noResult.style.display = "none";
-      grid.innerHTML = list.map(r => `
-        <div class="card">
-          <h2><i class="fa fa-bowl-food"></i> ${r.title}</h2>
-          <p class="meta">
-            <span><i class="fa fa-tag"></i> ${r.category}</span>
-            <span><i class="fa fa-clock"></i> ${r.time}</span>
-          </p>
-          <h4>Ingredients</h4>
-          <ul>${r.ingredients.map(i => `<li>${i}</li>`).join("")}</ul>
-          <h4>Preparation Steps</h4>
-          <ol>${r.steps.map(s => `<li>${s}</li>`).join("")}</ol>
-        </div>
-      `).join("");
+    if (list.length === 0) {
+      grid.innerHTML = "";
+      noResult.style.display = "block";
+      return;
     }
 
-    function filter() {
-      const q = document.getElementById("search").value.toLowerCase();
-      const c = document.getElementById("category").value;
-      render(recipes.filter(r =>
-        r.title.toLowerCase().includes(q) && (c === "" || r.category === c)
-      ));
-    }
-  </script>
-</div>
+    noResult.style.display = "none";
+    grid.innerHTML = list.map(r => `
+      <div class="card">
+        <h2><i class="fa fa-bowl-food"></i> ${r.title}</h2>
+        <p class="meta">
+          <span><i class="fa fa-tag"></i> ${r.category}</span>
+          <span><i class="fa fa-clock"></i> ${r.time}</span>
+        </p>
+        <h4>Ingredients</h4>
+        <ul>${r.ingredients.map(i => `<li>${i}</li>`).join("")}</ul>
+        <h4>Preparation Steps</h4>
+        <ol>${r.steps.map(s => `<li>${s}</li>`).join("")}</ol>
+      </div>
+    `).join("");
+  }
+
+  // filter by name and category together
+  function filter() {
+    const q = document.getElementById("search").value.toLowerCase();
+    const c = document.getElementById("category").value;
+    render(recipes.filter(r =>
+      r.title.toLowerCase().includes(q) && (c === "" || r.category === c)
+    ));
+  }
+</script>
 </body>
 </html>

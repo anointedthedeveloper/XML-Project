@@ -1,46 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="weather.xsl"?>
+
+<!-- Weather data for 7 Nigerian cities -->
 <weatherdata>
+
+  <!-- Lagos - hot and humid most of the year -->
   <city name="Lagos">
     <temperature unit="°C">32</temperature>
     <humidity unit="%">78</humidity>
     <windspeed unit="km/h">14</windspeed>
     <condition>Sunny</condition>
   </city>
+
+  <!-- Abuja - drier than Lagos, gets very hot in the dry season -->
   <city name="Abuja">
     <temperature unit="°C">35</temperature>
     <humidity unit="%">42</humidity>
     <windspeed unit="km/h">11</windspeed>
     <condition>Hot and Dry</condition>
   </city>
+
+  <!-- Kano - far north, harmattan makes it very dusty -->
   <city name="Kano">
     <temperature unit="°C">38</temperature>
     <humidity unit="%">25</humidity>
     <windspeed unit="km/h">18</windspeed>
     <condition>Dusty</condition>
   </city>
+
+  <!-- Port Harcourt - in the Niger Delta, rains a lot -->
   <city name="Port Harcourt">
     <temperature unit="°C">30</temperature>
     <humidity unit="%">88</humidity>
     <windspeed unit="km/h">10</windspeed>
     <condition>Rainy</condition>
   </city>
+
+  <!-- Ibadan - slightly cooler than Lagos -->
   <city name="Ibadan">
     <temperature unit="°C">31</temperature>
     <humidity unit="%">72</humidity>
     <windspeed unit="km/h">12</windspeed>
     <condition>Partly Cloudy</condition>
   </city>
+
+  <!-- Enugu - sits on a plateau so it is a bit cooler -->
   <city name="Enugu">
     <temperature unit="°C">29</temperature>
     <humidity unit="%">80</humidity>
     <windspeed unit="km/h">9</windspeed>
     <condition>Cloudy</condition>
   </city>
+
+  <!-- Kaduna - middle belt, mix of north and south weather -->
   <city name="Kaduna">
     <temperature unit="°C">33</temperature>
     <humidity unit="%">50</humidity>
     <windspeed unit="km/h">15</windspeed>
     <condition>Clear</condition>
   </city>
+
 </weatherdata>

@@ -1,10 +1,10 @@
 {
   "movies": [
-    { "title": "Living in Bondage",     "genre": "Drama",     "year": 1992, "rating": 8.2 },
-    { "title": "The Wedding Party",     "genre": "Comedy",    "year": 2016, "rating": 7.8 },
-    { "title": "King of Boys",          "genre": "Thriller",  "year": 2018, "rating": 8.5 },
-    { "title": "Lionheart",             "genre": "Drama",     "year": 2018, "rating": 7.5 },
-    { "title": "Omo Ghetto the Saga",   "genre": "Action",    "year": 2020, "rating": 7.2 },
-    { "title": "Merry Men",             "genre": "Action",    "year": 2018, "rating": 7.0 }
+    { "title": "Living in Bondage",   "genre": "Drama",    "year": 1992, "rating": 8.2 },
+    { "title": "The Wedding Party",   "genre": "Comedy",   "year": 2016, "rating": 7.8 },
+    { "title": "King of Boys",        "genre": "Thriller", "year": 2018, "rating": 8.5 },
+    { "title": "Lionheart",           "genre": "Drama",    "year": 2018, "rating": 7.5 },
+    { "title": "Omo Ghetto the Saga", "genre": "Action",   "year": 2020, "rating": 7.2 },
+    { "title": "Merry Men",           "genre": "Action",   "year": 2018, "rating": 7.0 }
   ]
 }

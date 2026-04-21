@@ -20,6 +20,7 @@
     }
     input:focus { border-color: #4a90d9; }
 
+    /* the table area scrolls if there are lots of contacts */
     .table-wrap { flex: 1; overflow: auto; }
 
     table { width: 100%; border-collapse: collapse; }
@@ -36,7 +37,9 @@
 <div class="page">
 
   <h1><i class="fa fa-address-book"></i> Address Book</h1>
-  <input type="text" id="search" placeholder="Search by name, phone or email…" oninput="filter()">
+
+  <!-- search box - filters as you type -->
+  <input type="text" id="search" placeholder="Search by name, phone or email..." oninput="filter()">
 
   <div class="table-wrap">
     <table>
@@ -55,20 +58,26 @@
 </div>
 
 <script>
+  // holds all contacts loaded from the XML file
   let contacts = [];
 
+  // fetch and read the XML file
   fetch("contacts.xml")
     .then(r => r.text())
     .then(xmlText => {
       const xml = new DOMParser().parseFromString(xmlText, "application/xml");
+
+      // pull out each contact's details into a simple array
       contacts = [...xml.querySelectorAll("contact")].map(c => ({
         name:  c.querySelector("name").textContent,
         phone: c.querySelector("phone").textContent,
         email: c.querySelector("email").textContent
       }));
+
       render(contacts);
     });
 
+  // builds the table rows from whatever list is passed in
   function render(list) {
     document.getElementById("tbody").innerHTML = list.map(c => `
       <tr>
@@ -77,9 +86,12 @@
         <td><a href="mailto:${c.email}">${c.email}</a></td>
       </tr>
     `).join("");
+
+    // show the "nothing found" message if the list is empty
     document.getElementById("noResult").style.display = list.length === 0 ? "block" : "none";
   }
 
+  // runs every time the user types in the search box
   function filter() {
     const q = document.getElementById("search").value.toLowerCase();
     render(contacts.filter(c =>
