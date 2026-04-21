@@ -63,31 +63,18 @@
       vertical-align: middle;
     }
 
-    /* ── connectors ── */
-    .v-line     { width: 2px; height: 20px; background: #e65c00; margin: 0 auto; }
-    .v-dash     { width: 2px; height: 20px; background: repeating-linear-gradient(to bottom,#e65c00 0,#e65c00 4px,transparent 4px,transparent 7px); margin: 0 auto; }
-    .v-dash-sub { width: 2px; height: 20px; background: repeating-linear-gradient(to bottom,#f0a060 0,#f0a060 4px,transparent 4px,transparent 7px); margin: 0 auto; }
-    .v-sub      { width: 2px; height: 20px; background: #f0a060; margin: 0 auto; }
+    .v-line     { width: 2px; height: 20px; background-color: #e65c00; margin: 0 auto; }
+    .v-dash     { width: 0; height: 20px; border-left: 2px dashed #e65c00; margin: 0 auto; }
+    .v-dash-sub { width: 0; height: 20px; border-left: 2px dashed #f0a060; margin: 0 auto; }
+    .v-sub      { width: 2px; height: 20px; background-color: #f0a060; margin: 0 auto; }
 
-    /* ── children rows ── */
-    .children {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      position: relative;
-    }
-    .children::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: #e65c00;
-    }
-    .children-sub::before { background: #f0a060; }
+    .children { display: flex; align-items: flex-start; justify-content: center; position: relative; }
+    .children::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background-color: #e65c00; }
+    .children-sub::before { background-color: #f0a060; }
 
     .branch { display: flex; flex-direction: column; align-items: center; padding: 0 10px; }
-    .drop     { width: 2px; height: 20px; background: #e65c00; }
-    .drop-sub { width: 2px; height: 20px; background: #f0a060; }
+    .drop     { width: 2px; height: 20px; background-color: #e65c00; }
+    .drop-sub { width: 2px; height: 20px; background-color: #f0a060; }
 
     /* ── legend ── */
     .legend {

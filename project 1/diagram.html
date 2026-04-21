@@ -21,14 +21,14 @@
     .lvl2 { background: #fff; color: #333; border: 2px solid #4a90d9; font-weight: normal; }
     .val  { background: #e8f4ff; color: #1a56a0; border: 1px dashed #4a90d9; font-weight: normal; font-size: 1rem; }
 
-    .v-line { width: 2px; height: 20px; background: #4a90d9; margin: 0 auto; }
-    .v-dash { width: 2px; height: 20px; background: repeating-linear-gradient(to bottom,#4a90d9 0,#4a90d9 4px,transparent 4px,transparent 7px); margin: 0 auto; }
+    .v-line { width: 2px; height: 20px; background-color: #4a90d9; margin: 0 auto; }
+    .v-dash { width: 0; height: 20px; border-left: 2px dashed #4a90d9; margin: 0 auto; }
 
     .children { display: flex; align-items: flex-start; justify-content: center; position: relative; }
-    .children::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: #4a90d9; }
+    .children::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background-color: #4a90d9; }
 
     .branch { display: flex; flex-direction: column; align-items: center; padding: 0 14px; }
-    .drop { width: 2px; height: 20px; background: #4a90d9; }
+    .drop { width: 2px; height: 20px; background-color: #4a90d9; }
 
     .legend { display: flex; flex-wrap: wrap; gap: 6px 20px; justify-content: center; padding: 8px 10px; background: #fff; border-radius: 8px; border: 1px solid #dce8f5; margin-top: 10px; }
     .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.95rem; color: #555; }

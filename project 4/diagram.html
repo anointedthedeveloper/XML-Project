@@ -16,26 +16,26 @@
     .tree { display: flex; flex-direction: column; align-items: center; transform-origin: top center; }
 
     .node { padding: 10px 22px; border-radius: 8px; font-family: monospace; font-size: 1.1rem; font-weight: bold; white-space: nowrap; }
-    .root { background: rgba(255,255,255,0.25); color: #fff; border: 2px solid rgba(255,255,255,0.5); }
-    .lvl1 { background: rgba(255,255,255,0.18); color: #fff; border: 2px solid rgba(255,255,255,0.35); }
-    .lvl2 { background: rgba(255,255,255,0.92); color: #0d47a1; border: none; font-weight: normal; }
-    .val  { background: rgba(255,255,255,0.15); color: #fff; border: 1px dashed rgba(255,255,255,0.5); font-weight: normal; font-size: 1rem; }
+    .root { background-color: #1a73e8; color: #fff; border: 2px solid #fff; }
+    .lvl1 { background-color: #1558b0; color: #fff; border: 2px solid #aac8f5; }
+    .lvl2 { background-color: #fff; color: #0d47a1; font-weight: normal; }
+    .val  { background-color: #dce8fb; color: #0d47a1; border: 1px dashed #4a90d9; font-weight: normal; font-size: 1rem; }
 
     .badge { display: inline-block; background: #fbbc04; color: #000; font-size: 0.85rem; padding: 2px 8px; border-radius: 4px; margin-left: 8px; font-family: Arial; vertical-align: middle; font-weight: bold; }
 
-    .v-line { width: 2px; height: 20px; background: rgba(255,255,255,0.6); margin: 0 auto; }
-    .v-dash { width: 2px; height: 20px; background: repeating-linear-gradient(to bottom,rgba(255,255,255,0.6) 0,rgba(255,255,255,0.6) 4px,transparent 4px,transparent 7px); margin: 0 auto; }
+    .v-line { width: 2px; height: 20px; background-color: #aac8f5; margin: 0 auto; }
+    .v-dash { width: 0; height: 20px; border-left: 2px dashed #aac8f5; margin: 0 auto; }
 
     .children { display: flex; align-items: flex-start; justify-content: center; position: relative; }
-    .children::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: rgba(255,255,255,0.6); }
+    .children::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background-color: #aac8f5; }
 
     .branch { display: flex; flex-direction: column; align-items: center; padding: 0 10px; }
-    .drop { width: 2px; height: 20px; background: rgba(255,255,255,0.6); }
+    .drop { width: 2px; height: 20px; background-color: #aac8f5; }
 
     .unit { font-size: 0.85rem; opacity: 0.7; font-family: Arial; font-weight: normal; display: block; text-align: center; margin-top: 2px; }
 
-    .legend { display: flex; flex-wrap: wrap; gap: 6px 20px; justify-content: center; padding: 8px 10px; background: rgba(255,255,255,0.12); border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); margin-top: 10px; }
-    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.95rem; opacity: 0.9; }
+    .legend { display: flex; flex-wrap: wrap; gap: 6px 20px; justify-content: center; padding: 8px 10px; background-color: #1558b0; border-radius: 8px; border: 1px solid #aac8f5; margin-top: 10px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.95rem; color: #fff; }
     .lbox { width: 22px; height: 16px; border-radius: 3px; flex-shrink: 0; }
   </style>
 </head>
@@ -89,11 +89,11 @@
   </div>
 
   <div class="legend">
-    <div class="legend-item"><div class="lbox" style="background:rgba(255,255,255,0.25);border:2px solid rgba(255,255,255,0.5);"></div> Root element</div>
-    <div class="legend-item"><div class="lbox" style="background:rgba(255,255,255,0.18);border:2px solid rgba(255,255,255,0.35);"></div> Repeating — one per city (×7)</div>
-    <div class="legend-item"><div class="lbox" style="background:rgba(255,255,255,0.92);"></div> Child element</div>
-    <div class="legend-item"><div class="lbox" style="background:rgba(255,255,255,0.15);border:1px dashed rgba(255,255,255,0.5);"></div> Example value</div>
-    <div class="legend-item"><div class="lbox" style="background:#fbbc04;"></div> XML attribute</div>
+    <div class="legend-item"><div class="lbox" style="background-color:#1a73e8;border:2px solid #fff;"></div> Root element</div>
+    <div class="legend-item"><div class="lbox" style="background-color:#1558b0;border:2px solid #aac8f5;"></div> Repeating — one per city (×7)</div>
+    <div class="legend-item"><div class="lbox" style="background-color:#fff;"></div> Child element</div>
+    <div class="legend-item"><div class="lbox" style="background-color:#dce8fb;border:1px dashed #4a90d9;"></div> Example value</div>
+    <div class="legend-item"><div class="lbox" style="background-color:#fbbc04;"></div> XML attribute</div>
   </div>
 
 </div>
