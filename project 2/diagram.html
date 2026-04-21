@@ -7,20 +7,11 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: Arial, sans-serif; background: #0f0f0f; color: #eee; padding: 40px 20px; }
     h1 { text-align: center; color: #e50914; margin-bottom: 6px; }
-    p.sub { text-align: center; color: #888; margin-bottom: 40px; font-size: 0.9rem; }
+    p.sub { text-align: center; color: #888; margin-bottom: 20px; font-size: 0.9rem; }
 
-    .tree { display: flex; flex-direction: column; align-items: center; }
-    .node { border-radius: 8px; padding: 10px 22px; font-size: 0.9rem; font-weight: bold; text-align: center; }
-    .root   { background: #e50914; color: #fff; font-size: 1rem; padding: 12px 32px; }
-    .level1 { background: #b00610; color: #fff; }
-    .level2 { background: #1a1a1a; color: #eee; border: 2px solid #e50914; font-weight: normal; min-width: 120px; }
-    .attr   { background: #2a2a2a; color: #f5c518; border: 1px dashed #e50914; font-size: 0.8rem; font-weight: normal; }
+    svg { display: block; margin: 0 auto; overflow: visible; }
 
-    .connector { width: 2px; background: #e50914; height: 28px; margin: 0 auto; }
-    .branch { display: flex; flex-direction: column; align-items: center; padding: 0 16px; }
-    .branch-connector { width: 2px; background: #e50914; height: 28px; }
-
-    .legend { max-width: 500px; margin: 50px auto 0; background: #1a1a1a; border-radius: 10px; padding: 20px; border: 1px solid #333; }
+    .legend { max-width: 500px; margin: 40px auto 0; background: #1a1a1a; border-radius: 10px; padding: 20px; border: 1px solid #333; }
     .legend h3 { color: #e50914; margin-bottom: 12px; }
     .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; color: #ccc; }
     .legend-box { width: 24px; height: 18px; border-radius: 4px; flex-shrink: 0; }
@@ -31,59 +22,75 @@
   <h1>🎬 Movie Catalog — JSON Structure</h1>
   <p class="sub">How the data is organised in <code>movies.json</code></p>
 
-  <div class="tree">
+  <svg width="660" height="380" viewBox="0 0 660 380">
 
-    <!-- Root object -->
-    <div class="node root">{ } Root Object</div>
-    <div class="connector"></div>
+    <!-- root -> movies array -->
+    <line x1="330" y1="42" x2="330" y2="90" stroke="#e50914" stroke-width="2"/>
+    <!-- movies array -> movie object -->
+    <line x1="330" y1="122" x2="330" y2="170" stroke="#e50914" stroke-width="2"/>
+    <!-- movie object -> horizontal bar -->
+    <line x1="330" y1="202" x2="330" y2="230" stroke="#e50914" stroke-width="2"/>
+
+    <!-- horizontal bar -->
+    <line x1="80" y1="230" x2="580" y2="230" stroke="#e50914" stroke-width="2"/>
+
+    <!-- bar -> each field -->
+    <line x1="80"  y1="230" x2="80"  y2="270" stroke="#e50914" stroke-width="2"/>
+    <line x1="247" y1="230" x2="247" y2="270" stroke="#e50914" stroke-width="2"/>
+    <line x1="413" y1="230" x2="413" y2="270" stroke="#e50914" stroke-width="2"/>
+    <line x1="580" y1="230" x2="580" y2="270" stroke="#e50914" stroke-width="2"/>
+
+    <!-- field -> value -->
+    <line x1="80"  y1="302" x2="80"  y2="330" stroke="#e50914" stroke-width="2" stroke-dasharray="4,3"/>
+    <line x1="247" y1="302" x2="247" y2="330" stroke="#e50914" stroke-width="2" stroke-dasharray="4,3"/>
+    <line x1="413" y1="302" x2="413" y2="330" stroke="#e50914" stroke-width="2" stroke-dasharray="4,3"/>
+    <line x1="580" y1="302" x2="580" y2="330" stroke="#e50914" stroke-width="2" stroke-dasharray="4,3"/>
+
+    <!-- ROOT object -->
+    <rect x="210" y="10" width="240" height="32" rx="8" fill="#e50914"/>
+    <text x="330" y="31" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="Arial">{ } Root Object</text>
 
     <!-- movies array -->
-    <div class="node level1">"movies": [ ] Array × 6 items</div>
-    <div class="connector"></div>
+    <rect x="160" y="90" width="340" height="32" rx="8" fill="#b00610"/>
+    <text x="330" y="111" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="Arial">"movies": [ ]  Array ×6 items</text>
 
-    <!-- one movie object -->
-    <div class="node level1">{ } Movie Object</div>
-    <div class="connector"></div>
+    <!-- movie object -->
+    <rect x="185" y="170" width="290" height="32" rx="8" fill="#b00610"/>
+    <text x="330" y="191" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="Arial">{ } Movie Object</text>
 
-    <!-- h-line across fields -->
-    <div style="position:relative; width:620px;">
-      <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); height:2px; background:#e50914; width:540px;"></div>
-      <div style="display:flex; justify-content:space-around; padding-top:0;">
+    <!-- title -->
+    <rect x="18" y="270" width="124" height="32" rx="8" fill="#1a1a1a" stroke="#e50914" stroke-width="2"/>
+    <text x="80" y="291" text-anchor="middle" fill="#eee" font-size="13" font-family="Arial">"title"</text>
 
-        <div class="branch">
-          <div class="branch-connector"></div>
-          <div class="node level2">"title"</div>
-          <div class="connector" style="height:16px;"></div>
-          <div class="node attr">"King of Boys"</div>
-        </div>
+    <!-- genre -->
+    <rect x="185" y="270" width="124" height="32" rx="8" fill="#1a1a1a" stroke="#e50914" stroke-width="2"/>
+    <text x="247" y="291" text-anchor="middle" fill="#eee" font-size="13" font-family="Arial">"genre"</text>
 
-        <div class="branch">
-          <div class="branch-connector"></div>
-          <div class="node level2">"genre"</div>
-          <div class="connector" style="height:16px;"></div>
-          <div class="node attr">"Thriller"</div>
-        </div>
+    <!-- year -->
+    <rect x="351" y="270" width="124" height="32" rx="8" fill="#1a1a1a" stroke="#e50914" stroke-width="2"/>
+    <text x="413" y="291" text-anchor="middle" fill="#eee" font-size="13" font-family="Arial">"year"</text>
 
-        <div class="branch">
-          <div class="branch-connector"></div>
-          <div class="node level2">"year"</div>
-          <div class="connector" style="height:16px;"></div>
-          <div class="node attr">2018</div>
-        </div>
+    <!-- rating -->
+    <rect x="518" y="270" width="124" height="32" rx="8" fill="#1a1a1a" stroke="#e50914" stroke-width="2"/>
+    <text x="580" y="291" text-anchor="middle" fill="#eee" font-size="13" font-family="Arial">"rating"</text>
 
-        <div class="branch">
-          <div class="branch-connector"></div>
-          <div class="node level2">"rating"</div>
-          <div class="connector" style="height:16px;"></div>
-          <div class="node attr">8.5</div>
-        </div>
+    <!-- title value -->
+    <rect x="10" y="330" width="140" height="32" rx="8" fill="#2a2a2a" stroke="#e50914" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="80" y="351" text-anchor="middle" fill="#f5c518" font-size="11" font-family="Arial">"King of Boys"</text>
 
-      </div>
-    </div>
+    <!-- genre value -->
+    <rect x="185" y="330" width="124" height="32" rx="8" fill="#2a2a2a" stroke="#e50914" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="247" y="351" text-anchor="middle" fill="#f5c518" font-size="11" font-family="Arial">"Thriller"</text>
 
-  </div>
+    <!-- year value -->
+    <rect x="363" y="330" width="100" height="32" rx="8" fill="#2a2a2a" stroke="#e50914" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="413" y="351" text-anchor="middle" fill="#f5c518" font-size="11" font-family="Arial">2018</text>
 
-  <!-- Legend -->
+    <!-- rating value -->
+    <rect x="530" y="330" width="100" height="32" rx="8" fill="#2a2a2a" stroke="#e50914" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="580" y="351" text-anchor="middle" fill="#f5c518" font-size="11" font-family="Arial">8.5</text>
+  </svg>
+
   <div class="legend">
     <h3>🔑 Legend</h3>
     <div class="legend-item"><div class="legend-box" style="background:#e50914;"></div> Root object — the whole JSON file</div>

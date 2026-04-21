@@ -7,24 +7,11 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: Arial, sans-serif; background: #fffaf4; padding: 40px 20px; }
     h1 { text-align: center; color: #e65c00; margin-bottom: 6px; }
-    p.sub { text-align: center; color: #888; margin-bottom: 40px; font-size: 0.9rem; }
+    p.sub { text-align: center; color: #888; margin-bottom: 20px; font-size: 0.9rem; }
 
-    .tree { display: flex; flex-direction: column; align-items: center; }
-    .node { border-radius: 8px; padding: 10px 22px; font-size: 0.9rem; font-weight: bold; text-align: center; }
-    .root   { background: #e65c00; color: #fff; font-size: 1rem; padding: 12px 32px; }
-    .level1 { background: #f07b2a; color: #fff; }
-    .level2 { background: #fff; color: #333; border: 2px solid #e65c00; font-weight: normal; min-width: 140px; }
-    .level3 { background: #fff8f0; color: #555; border: 2px solid #f0a060; font-weight: normal; min-width: 120px; font-size: 0.85rem; }
-    .attr   { background: #fff3e0; color: #b84a00; border: 1px dashed #e65c00; font-size: 0.78rem; font-weight: normal; }
-    .id-badge { background: #e65c00; color: #fff; border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; margin-left: 6px; }
+    svg { display: block; margin: 0 auto; overflow: visible; }
 
-    .connector { width: 2px; background: #e65c00; height: 28px; margin: 0 auto; }
-    .branch { display: flex; flex-direction: column; align-items: center; padding: 0 12px; }
-    .branch-connector { width: 2px; background: #e65c00; height: 28px; }
-    .sub-branch { display: flex; flex-direction: column; align-items: center; padding: 0 8px; }
-    .sub-connector { width: 2px; background: #f0a060; height: 20px; }
-
-    .legend { max-width: 560px; margin: 50px auto 0; background: #fff; border-radius: 10px; padding: 20px; border: 1px solid #f0dcc8; }
+    .legend { max-width: 580px; margin: 40px auto 0; background: #fff; border-radius: 10px; padding: 20px; border: 1px solid #f0dcc8; }
     .legend h3 { color: #e65c00; margin-bottom: 12px; }
     .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; }
     .legend-box { width: 24px; height: 18px; border-radius: 4px; flex-shrink: 0; }
@@ -35,92 +22,124 @@
   <h1>🍽️ Recipe Book — XML Structure</h1>
   <p class="sub">How the data is organised in <code>recipes.xml</code></p>
 
-  <div class="tree">
+  <!--
+    Layout (x centres):
+      recipes root  : 460
+      recipe        : 460
+      Level-2 nodes : title=100, category=260, cookingtime=420, ingredients=600, steps=780
+      ingredients children : item=540, item×n=660
+      steps children       : step=720, step×n=840
+  -->
+  <svg width="940" height="430" viewBox="0 0 940 430">
 
-    <!-- Root -->
-    <div class="node root">&lt;recipes&gt;</div>
-    <div class="connector"></div>
+    <!-- ── root → recipe ── -->
+    <line x1="460" y1="42"  x2="460" y2="90"  stroke="#e65c00" stroke-width="2"/>
+
+    <!-- ── recipe → horizontal bar ── -->
+    <line x1="460" y1="122" x2="460" y2="155" stroke="#e65c00" stroke-width="2"/>
+
+    <!-- ── horizontal bar across all 5 level-2 nodes ── -->
+    <line x1="100" y1="155" x2="820" y2="155" stroke="#e65c00" stroke-width="2"/>
+
+    <!-- ── bar → each level-2 node ── -->
+    <line x1="100" y1="155" x2="100" y2="195" stroke="#e65c00" stroke-width="2"/>
+    <line x1="270" y1="155" x2="270" y2="195" stroke="#e65c00" stroke-width="2"/>
+    <line x1="440" y1="155" x2="440" y2="195" stroke="#e65c00" stroke-width="2"/>
+    <line x1="610" y1="155" x2="610" y2="195" stroke="#e65c00" stroke-width="2"/>
+    <line x1="820" y1="155" x2="820" y2="195" stroke="#e65c00" stroke-width="2"/>
+
+    <!-- ── title / category / cookingtime → values ── -->
+    <line x1="100" y1="227" x2="100" y2="265" stroke="#e65c00" stroke-width="2" stroke-dasharray="4,3"/>
+    <line x1="270" y1="227" x2="270" y2="265" stroke="#e65c00" stroke-width="2" stroke-dasharray="4,3"/>
+    <line x1="440" y1="227" x2="440" y2="265" stroke="#e65c00" stroke-width="2" stroke-dasharray="4,3"/>
+
+    <!-- ── ingredients → horizontal bar ── -->
+    <line x1="610" y1="227" x2="610" y2="260" stroke="#e65c00" stroke-width="2"/>
+    <line x1="540" y1="260" x2="680" y2="260" stroke="#f0a060" stroke-width="2"/>
+    <line x1="540" y1="260" x2="540" y2="295" stroke="#f0a060" stroke-width="2"/>
+    <line x1="680" y1="260" x2="680" y2="295" stroke="#f0a060" stroke-width="2"/>
+
+    <!-- ── steps → horizontal bar ── -->
+    <line x1="820" y1="227" x2="820" y2="260" stroke="#e65c00" stroke-width="2"/>
+    <line x1="750" y1="260" x2="890" y2="260" stroke="#f0a060" stroke-width="2"/>
+    <line x1="750" y1="260" x2="750" y2="295" stroke="#f0a060" stroke-width="2"/>
+    <line x1="890" y1="260" x2="890" y2="295" stroke="#f0a060" stroke-width="2"/>
+
+    <!-- ── item / step → values ── -->
+    <line x1="540" y1="327" x2="540" y2="365" stroke="#f0a060" stroke-width="2" stroke-dasharray="4,3"/>
+    <line x1="750" y1="327" x2="750" y2="365" stroke="#f0a060" stroke-width="2" stroke-dasharray="4,3"/>
+
+    <!-- ════ NODES ════ -->
+
+    <!-- root -->
+    <rect x="340" y="10" width="240" height="32" rx="8" fill="#e65c00"/>
+    <text x="460" y="31" text-anchor="middle" fill="white" font-size="14" font-weight="bold" font-family="Arial">&lt;recipes&gt;</text>
 
     <!-- recipe -->
-    <div class="node level1">&lt;recipe id="1"&gt; × 4 <span class="id-badge">id attr</span></div>
-    <div class="connector"></div>
+    <rect x="290" y="90" width="340" height="32" rx="8" fill="#f07b2a"/>
+    <text x="430" y="111" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="Arial">&lt;recipe id="1"&gt;  ×4</text>
+    <rect x="610" y="93" width="52" height="22" rx="4" fill="#e65c00"/>
+    <text x="636" y="108" text-anchor="middle" fill="white" font-size="10" font-family="Arial">id attr</text>
 
-    <!-- level 2 children spread -->
-    <div style="position:relative; width:820px;">
-      <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); height:2px; background:#e65c00; width:740px;"></div>
-      <div style="display:flex; justify-content:space-around; padding-top:0;">
+    <!-- title -->
+    <rect x="30"  y="195" width="140" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
+    <text x="100" y="216" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;title&gt;</text>
 
-        <div class="branch">
-          <div class="branch-connector"></div>
-          <div class="node level2">&lt;title&gt;</div>
-          <div class="connector" style="height:16px;"></div>
-          <div class="node attr">Jollof Rice</div>
-        </div>
+    <!-- category -->
+    <rect x="190" y="195" width="160" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
+    <text x="270" y="216" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;category&gt;</text>
 
-        <div class="branch">
-          <div class="branch-connector"></div>
-          <div class="node level2">&lt;category&gt;</div>
-          <div class="connector" style="height:16px;"></div>
-          <div class="node attr">Main Course</div>
-        </div>
+    <!-- cookingtime -->
+    <rect x="350" y="195" width="180" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
+    <text x="440" y="216" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;cookingtime&gt;</text>
 
-        <div class="branch">
-          <div class="branch-connector"></div>
-          <div class="node level2">&lt;cookingtime&gt;</div>
-          <div class="connector" style="height:16px;"></div>
-          <div class="node attr">45 minutes</div>
-        </div>
+    <!-- ingredients -->
+    <rect x="540" y="195" width="140" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
+    <text x="610" y="216" text-anchor="middle" fill="#333" font-size="12" font-family="Arial">&lt;ingredients&gt;</text>
 
-        <!-- ingredients branch -->
-        <div class="branch">
-          <div class="branch-connector"></div>
-          <div class="node level2">&lt;ingredients&gt;</div>
-          <div class="connector" style="height:16px;"></div>
-          <div style="position:relative; width:200px;">
-            <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); height:2px; background:#f0a060; width:160px;"></div>
-            <div style="display:flex; justify-content:space-around; padding-top:0;">
-              <div class="sub-branch">
-                <div class="sub-connector"></div>
-                <div class="node level3">&lt;item&gt;</div>
-                <div class="connector" style="height:12px; background:#f0a060;"></div>
-                <div class="node attr">2 cups rice</div>
-              </div>
-              <div class="sub-branch">
-                <div class="sub-connector"></div>
-                <div class="node level3">&lt;item&gt; ×n</div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <!-- steps -->
+    <rect x="750" y="195" width="140" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
+    <text x="820" y="216" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;steps&gt;</text>
 
-        <!-- steps branch -->
-        <div class="branch">
-          <div class="branch-connector"></div>
-          <div class="node level2">&lt;steps&gt;</div>
-          <div class="connector" style="height:16px;"></div>
-          <div style="position:relative; width:200px;">
-            <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); height:2px; background:#f0a060; width:160px;"></div>
-            <div style="display:flex; justify-content:space-around; padding-top:0;">
-              <div class="sub-branch">
-                <div class="sub-connector"></div>
-                <div class="node level3">&lt;step&gt;</div>
-                <div class="connector" style="height:12px; background:#f0a060;"></div>
-                <div class="node attr">Blend tomatoes…</div>
-              </div>
-              <div class="sub-branch">
-                <div class="sub-connector"></div>
-                <div class="node level3">&lt;step&gt; ×n</div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <!-- title value -->
+    <rect x="28"  y="265" width="144" height="32" rx="8" fill="#fff3e0" stroke="#e65c00" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="100" y="286" text-anchor="middle" fill="#b84a00" font-size="11" font-family="Arial">Jollof Rice</text>
 
-      </div>
-    </div>
+    <!-- category value -->
+    <rect x="192" y="265" width="156" height="32" rx="8" fill="#fff3e0" stroke="#e65c00" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="270" y="286" text-anchor="middle" fill="#b84a00" font-size="11" font-family="Arial">Main Course</text>
 
-  </div>
+    <!-- cookingtime value -->
+    <rect x="360" y="265" width="160" height="32" rx="8" fill="#fff3e0" stroke="#e65c00" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="440" y="286" text-anchor="middle" fill="#b84a00" font-size="11" font-family="Arial">45 minutes</text>
 
-  <!-- Legend -->
+    <!-- item -->
+    <rect x="478" y="295" width="124" height="32" rx="8" fill="#fff8f0" stroke="#f0a060" stroke-width="2"/>
+    <text x="540" y="316" text-anchor="middle" fill="#555" font-size="12" font-family="Arial">&lt;item&gt;</text>
+
+    <!-- item ×n -->
+    <rect x="618" y="295" width="124" height="32" rx="8" fill="#fff8f0" stroke="#f0a060" stroke-width="2"/>
+    <text x="680" y="316" text-anchor="middle" fill="#555" font-size="12" font-family="Arial">&lt;item&gt; ×n</text>
+
+    <!-- step -->
+    <rect x="688" y="295" width="124" height="32" rx="8" fill="#fff8f0" stroke="#f0a060" stroke-width="2"/>
+    <text x="750" y="316" text-anchor="middle" fill="#555" font-size="12" font-family="Arial">&lt;step&gt;</text>
+
+    <!-- step ×n -->
+    <rect x="828" y="295" width="124" height="32" rx="8" fill="#fff8f0" stroke="#f0a060" stroke-width="2"/>
+    <text x="890" y="316" text-anchor="middle" fill="#555" font-size="12" font-family="Arial">&lt;step&gt; ×n</text>
+
+    <!-- item value -->
+    <rect x="468" y="365" width="144" height="32" rx="8" fill="#fff3e0" stroke="#f0a060" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="540" y="386" text-anchor="middle" fill="#b84a00" font-size="11" font-family="Arial">2 cups rice</text>
+
+    <!-- step value -->
+    <rect x="672" y="365" width="156" height="32" rx="8" fill="#fff3e0" stroke="#f0a060" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="750" y="381" text-anchor="middle" fill="#b84a00" font-size="10" font-family="Arial">Blend tomatoes</text>
+    <text x="750" y="394" text-anchor="middle" fill="#b84a00" font-size="10" font-family="Arial">and onions…</text>
+
+  </svg>
+
   <div class="legend">
     <h3>🔑 Legend</h3>
     <div class="legend-item"><div class="legend-box" style="background:#e65c00;"></div> Root element — wraps all recipes</div>

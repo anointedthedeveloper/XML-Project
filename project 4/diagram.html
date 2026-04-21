@@ -11,21 +11,18 @@
       min-height: 100vh; padding: 40px 20px; color: #fff;
     }
     h1 { text-align: center; margin-bottom: 6px; }
-    p.sub { text-align: center; opacity: 0.8; margin-bottom: 40px; font-size: 0.9rem; }
+    p.sub { text-align: center; opacity: 0.8; margin-bottom: 20px; font-size: 0.9rem; }
 
-    .tree { display: flex; flex-direction: column; align-items: center; }
-    .node { border-radius: 8px; padding: 10px 22px; font-size: 0.9rem; font-weight: bold; text-align: center; }
-    .root   { background: rgba(255,255,255,0.25); backdrop-filter: blur(6px); color: #fff; font-size: 1rem; padding: 12px 32px; border: 2px solid rgba(255,255,255,0.4); }
-    .level1 { background: rgba(255,255,255,0.18); color: #fff; border: 2px solid rgba(255,255,255,0.35); }
-    .level2 { background: rgba(255,255,255,0.9); color: #0d47a1; border: none; font-weight: normal; min-width: 150px; }
-    .attr   { background: rgba(255,255,255,0.15); color: #fff; border: 1px dashed rgba(255,255,255,0.5); font-size: 0.8rem; font-weight: normal; }
-    .attr-badge { background: #fbbc04; color: #000; border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; margin-left: 6px; }
+    svg { display: block; margin: 0 auto; overflow: visible; }
 
-    .connector { width: 2px; background: rgba(255,255,255,0.5); height: 28px; margin: 0 auto; }
-    .branch { display: flex; flex-direction: column; align-items: center; padding: 0 10px; }
-    .branch-connector { width: 2px; background: rgba(255,255,255,0.5); height: 28px; }
+    .cities { max-width: 700px; margin: 40px auto 0; }
+    .cities h3 { margin-bottom: 12px; opacity: 0.9; }
+    table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
+    th { background: rgba(0,0,0,0.25); padding: 10px; text-align: left; font-size: 0.85rem; }
+    td { padding: 9px 10px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; }
+    tr:last-child td { border-bottom: none; }
 
-    .legend { max-width: 540px; margin: 50px auto 0; background: rgba(255,255,255,0.12); backdrop-filter: blur(6px); border-radius: 10px; padding: 20px; border: 1px solid rgba(255,255,255,0.2); }
+    .legend { max-width: 560px; margin: 30px auto 0; background: rgba(255,255,255,0.12); backdrop-filter: blur(6px); border-radius: 10px; padding: 20px; border: 1px solid rgba(255,255,255,0.2); }
     .legend h3 { color: #fbbc04; margin-bottom: 12px; }
     .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; opacity: 0.9; }
     .legend-box { width: 24px; height: 18px; border-radius: 4px; flex-shrink: 0; }
@@ -36,86 +33,108 @@
   <h1>🌤️ Weather Forecast — XML Structure</h1>
   <p class="sub">How the data is organised in <code>weather.xml</code></p>
 
-  <div class="tree">
+  <!--
+    x centres: weatherdata=380, city=380
+    level-2: temp=100, humidity=270, windspeed=450, condition=640
+  -->
+  <svg width="760" height="340" viewBox="0 0 760 340">
 
-    <!-- Root -->
-    <div class="node root">&lt;weatherdata&gt;</div>
-    <div class="connector"></div>
+    <!-- root → city -->
+    <line x1="380" y1="42"  x2="380" y2="90"  stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
 
-    <!-- city -->
-    <div class="node level1">&lt;city name="Lagos"&gt; × 7 <span class="attr-badge">name attr</span></div>
-    <div class="connector"></div>
+    <!-- city → horizontal bar -->
+    <line x1="380" y1="122" x2="380" y2="155" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
 
-    <!-- children spread -->
-    <div style="position:relative; width:780px;">
-      <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); height:2px; background:rgba(255,255,255,0.5); width:700px;"></div>
-      <div style="display:flex; justify-content:space-around; padding-top:0;">
+    <!-- horizontal bar -->
+    <line x1="100" y1="155" x2="660" y2="155" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
 
-        <div class="branch">
-          <div class="branch-connector"></div>
-          <div class="node level2">&lt;temperature&gt;<br><small style="color:#888;">unit="°C"</small></div>
-          <div class="connector" style="height:16px;"></div>
-          <div class="node attr">32</div>
-        </div>
+    <!-- bar → each level-2 node -->
+    <line x1="100" y1="155" x2="100" y2="195" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
+    <line x1="287" y1="155" x2="287" y2="195" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
+    <line x1="473" y1="155" x2="473" y2="195" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
+    <line x1="660" y1="155" x2="660" y2="195" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
 
-        <div class="branch">
-          <div class="branch-connector"></div>
-          <div class="node level2">&lt;humidity&gt;<br><small style="color:#888;">unit="%"</small></div>
-          <div class="connector" style="height:16px;"></div>
-          <div class="node attr">78</div>
-        </div>
+    <!-- level-2 → values -->
+    <line x1="100" y1="255" x2="100" y2="285" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-dasharray="4,3"/>
+    <line x1="287" y1="255" x2="287" y2="285" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-dasharray="4,3"/>
+    <line x1="473" y1="255" x2="473" y2="285" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-dasharray="4,3"/>
+    <line x1="660" y1="255" x2="660" y2="285" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-dasharray="4,3"/>
 
-        <div class="branch">
-          <div class="branch-connector"></div>
-          <div class="node level2">&lt;windspeed&gt;<br><small style="color:#888;">unit="km/h"</small></div>
-          <div class="connector" style="height:16px;"></div>
-          <div class="node attr">14</div>
-        </div>
+    <!-- ════ NODES ════ -->
 
-        <div class="branch">
-          <div class="branch-connector"></div>
-          <div class="node level2">&lt;condition&gt;</div>
-          <div class="connector" style="height:16px;"></div>
-          <div class="node attr">Sunny</div>
-        </div>
+    <!-- weatherdata root -->
+    <rect x="230" y="10" width="300" height="32" rx="8" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+    <text x="380" y="31" text-anchor="middle" fill="white" font-size="14" font-weight="bold" font-family="Arial">&lt;weatherdata&gt;</text>
 
-      </div>
-    </div>
+    <!-- city node -->
+    <rect x="200" y="90" width="280" height="32" rx="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+    <text x="355" y="111" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="Arial">&lt;city name="Lagos"&gt;  ×7</text>
+    <rect x="570" y="93" width="66" height="22" rx="4" fill="#fbbc04"/>
+    <text x="603" y="108" text-anchor="middle" fill="#000" font-size="10" font-weight="bold" font-family="Arial">name attr</text>
 
-  </div>
+    <!-- temperature -->
+    <rect x="18" y="195" width="164" height="60" rx="8" fill="rgba(255,255,255,0.9)"/>
+    <text x="100" y="220" text-anchor="middle" fill="#0d47a1" font-size="12" font-weight="bold" font-family="Arial">&lt;temperature&gt;</text>
+    <text x="100" y="238" text-anchor="middle" fill="#555"    font-size="10" font-family="Arial">unit="°C"</text>
+
+    <!-- humidity -->
+    <rect x="205" y="195" width="164" height="60" rx="8" fill="rgba(255,255,255,0.9)"/>
+    <text x="287" y="220" text-anchor="middle" fill="#0d47a1" font-size="12" font-weight="bold" font-family="Arial">&lt;humidity&gt;</text>
+    <text x="287" y="238" text-anchor="middle" fill="#555"    font-size="10" font-family="Arial">unit="%"</text>
+
+    <!-- windspeed -->
+    <rect x="391" y="195" width="164" height="60" rx="8" fill="rgba(255,255,255,0.9)"/>
+    <text x="473" y="220" text-anchor="middle" fill="#0d47a1" font-size="12" font-weight="bold" font-family="Arial">&lt;windspeed&gt;</text>
+    <text x="473" y="238" text-anchor="middle" fill="#555"    font-size="10" font-family="Arial">unit="km/h"</text>
+
+    <!-- condition -->
+    <rect x="578" y="195" width="164" height="60" rx="8" fill="rgba(255,255,255,0.9)"/>
+    <text x="660" y="220" text-anchor="middle" fill="#0d47a1" font-size="12" font-weight="bold" font-family="Arial">&lt;condition&gt;</text>
+    <text x="660" y="238" text-anchor="middle" fill="#555"    font-size="10" font-family="Arial">(no unit attr)</text>
+
+    <!-- temperature value -->
+    <rect x="28"  y="285" width="144" height="32" rx="8" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.4)" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="100" y="306" text-anchor="middle" fill="white" font-size="12" font-family="Arial">32</text>
+
+    <!-- humidity value -->
+    <rect x="215" y="285" width="144" height="32" rx="8" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.4)" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="287" y="306" text-anchor="middle" fill="white" font-size="12" font-family="Arial">78</text>
+
+    <!-- windspeed value -->
+    <rect x="401" y="285" width="144" height="32" rx="8" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.4)" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="473" y="306" text-anchor="middle" fill="white" font-size="12" font-family="Arial">14</text>
+
+    <!-- condition value -->
+    <rect x="588" y="285" width="144" height="32" rx="8" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.4)" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="660" y="306" text-anchor="middle" fill="white" font-size="12" font-family="Arial">Sunny</text>
+
+  </svg>
 
   <!-- Cities table -->
-  <div style="max-width:700px; margin: 50px auto 0;">
-    <h3 style="margin-bottom:12px; opacity:0.9;">🗺️ Cities in the XML (×7)</h3>
-    <table style="width:100%; border-collapse:collapse; background:rgba(255,255,255,0.1); border-radius:10px; overflow:hidden;">
+  <div class="cities">
+    <h3>🗺️ All 7 Nigerian Cities in the XML</h3>
+    <table>
       <thead>
-        <tr>
-          <th style="padding:10px; text-align:left; background:rgba(0,0,0,0.25); font-size:0.85rem;">City (name attr)</th>
-          <th style="padding:10px; text-align:left; background:rgba(0,0,0,0.25); font-size:0.85rem;">Temp</th>
-          <th style="padding:10px; text-align:left; background:rgba(0,0,0,0.25); font-size:0.85rem;">Humidity</th>
-          <th style="padding:10px; text-align:left; background:rgba(0,0,0,0.25); font-size:0.85rem;">Wind</th>
-          <th style="padding:10px; text-align:left; background:rgba(0,0,0,0.25); font-size:0.85rem;">Condition</th>
-        </tr>
+        <tr><th>City</th><th>Temp</th><th>Humidity</th><th>Wind</th><th>Condition</th></tr>
       </thead>
       <tbody>
-        <tr><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">Lagos</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">32°C</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">78%</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">14 km/h</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">Sunny</td></tr>
-        <tr><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">Abuja</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">35°C</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">42%</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">11 km/h</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">Hot and Dry</td></tr>
-        <tr><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">Kano</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">38°C</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">25%</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">18 km/h</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">Dusty</td></tr>
-        <tr><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">Port Harcourt</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">30°C</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">88%</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">10 km/h</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">Rainy</td></tr>
-        <tr><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">Ibadan</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">31°C</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">72%</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">12 km/h</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">Partly Cloudy</td></tr>
-        <tr><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">Enugu</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">29°C</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">80%</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">9 km/h</td><td style="padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.1);">Cloudy</td></tr>
-        <tr><td style="padding:8px 10px;">Kaduna</td><td style="padding:8px 10px;">33°C</td><td style="padding:8px 10px;">50%</td><td style="padding:8px 10px;">15 km/h</td><td style="padding:8px 10px;">Clear</td></tr>
+        <tr><td>Lagos</td><td>32°C</td><td>78%</td><td>14 km/h</td><td>Sunny</td></tr>
+        <tr><td>Abuja</td><td>35°C</td><td>42%</td><td>11 km/h</td><td>Hot and Dry</td></tr>
+        <tr><td>Kano</td><td>38°C</td><td>25%</td><td>18 km/h</td><td>Dusty</td></tr>
+        <tr><td>Port Harcourt</td><td>30°C</td><td>88%</td><td>10 km/h</td><td>Rainy</td></tr>
+        <tr><td>Ibadan</td><td>31°C</td><td>72%</td><td>12 km/h</td><td>Partly Cloudy</td></tr>
+        <tr><td>Enugu</td><td>29°C</td><td>80%</td><td>9 km/h</td><td>Cloudy</td></tr>
+        <tr><td>Kaduna</td><td>33°C</td><td>50%</td><td>15 km/h</td><td>Clear</td></tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Legend -->
   <div class="legend">
     <h3>🔑 Legend</h3>
-    <div class="legend-item"><div class="legend-box" style="background:rgba(255,255,255,0.25); border:2px solid rgba(255,255,255,0.4);"></div> Root element — wraps all city data</div>
-    <div class="legend-item"><div class="legend-box" style="background:rgba(255,255,255,0.18); border:2px solid rgba(255,255,255,0.35);"></div> Repeating element — one per city (×7), has a <strong>name</strong> attribute</div>
+    <div class="legend-item"><div class="legend-box" style="background:rgba(255,255,255,0.25); border:2px solid rgba(255,255,255,0.5);"></div> Root element — wraps all city data</div>
+    <div class="legend-item"><div class="legend-box" style="background:rgba(255,255,255,0.2); border:2px solid rgba(255,255,255,0.4);"></div> Repeating element — one per city (×7), has a <strong>name</strong> attribute</div>
     <div class="legend-item"><div class="legend-box" style="background:rgba(255,255,255,0.9);"></div> Child element — one weather reading, some have a <strong>unit</strong> attribute</div>
-    <div class="legend-item"><div class="legend-box" style="background:rgba(255,255,255,0.15); border:1px dashed rgba(255,255,255,0.5);"></div> Example value stored inside the element</div>
+    <div class="legend-item"><div class="legend-box" style="background:rgba(255,255,255,0.15); border:1px dashed rgba(255,255,255,0.4);"></div> Example value stored inside the element</div>
     <div class="legend-item"><div class="legend-box" style="background:#fbbc04;"></div> XML attribute (written inside the opening tag)</div>
   </div>
 
