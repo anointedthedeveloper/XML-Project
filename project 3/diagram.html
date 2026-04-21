@@ -5,167 +5,201 @@
   <title>Recipe Book – XML Diagram</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; background: #fffaf4; padding: 40px 20px; }
+    body { font-family: Arial, sans-serif; background: #fffaf4; padding: 40px 20px 60px; }
     h1 { text-align: center; color: #e65c00; margin-bottom: 6px; }
-    p.sub { text-align: center; color: #888; margin-bottom: 20px; font-size: 0.9rem; }
-    svg { display: block; margin: 0 auto; overflow: visible; }
-    .legend { max-width: 580px; margin: 40px auto 0; background: #fff; border-radius: 10px; padding: 20px; border: 1px solid #f0dcc8; }
+    p.sub { text-align: center; color: #888; margin-bottom: 40px; font-size: 0.9rem; }
+
+    /* ── tree container ── */
+    .tree { display: flex; flex-direction: column; align-items: center; }
+
+    /* ── generic node ── */
+    .node {
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.95rem;
+      font-weight: bold;
+      white-space: nowrap;
+      position: relative;
+      z-index: 1;
+    }
+    .root   { background: #e65c00; color: #fff; }
+    .lvl1   { background: #f07b2a; color: #fff; }
+    .lvl2   { background: #fff; color: #333; border: 2px solid #e65c00; font-weight: normal; }
+    .lvl3   { background: #fff8f0; color: #444; border: 2px solid #f0a060; font-weight: normal; font-size: 0.88rem; }
+    .val    { background: #fff3e0; color: #b84a00; border: 1px dashed #e65c00; font-weight: normal; font-size: 0.85rem; }
+    .val3   { background: #fff3e0; color: #b84a00; border: 1px dashed #f0a060; font-weight: normal; font-size: 0.85rem; }
+
+    .badge {
+      display: inline-block;
+      background: #c44a00; color: #fff;
+      font-size: 0.7rem; padding: 2px 7px;
+      border-radius: 4px; margin-left: 8px;
+      font-family: Arial, sans-serif;
+      vertical-align: middle;
+    }
+
+    /* ── vertical connector ── */
+    .v-line {
+      width: 2px; height: 36px;
+      background: #e65c00;
+      margin: 0 auto;
+    }
+    .v-line-sub {
+      width: 2px; height: 36px;
+      background: #f0a060;
+      margin: 0 auto;
+    }
+    .v-dash {
+      width: 2px; height: 36px;
+      background: repeating-linear-gradient(to bottom, #e65c00 0px, #e65c00 5px, transparent 5px, transparent 9px);
+      margin: 0 auto;
+    }
+    .v-dash-sub {
+      width: 2px; height: 36px;
+      background: repeating-linear-gradient(to bottom, #f0a060 0px, #f0a060 5px, transparent 5px, transparent 9px);
+      margin: 0 auto;
+    }
+
+    /* ── row of children with horizontal connector ── */
+    .children {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      position: relative;
+    }
+    /* the horizontal bar drawn via ::before */
+    .children::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: #e65c00;
+    }
+    .children-sub::before { background: #f0a060; }
+
+    /* each branch inside a children row */
+    .branch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 18px;
+    }
+    /* the short vertical drop from the h-bar to the node */
+    .branch-drop {
+      width: 2px; height: 36px;
+      background: #e65c00;
+    }
+    .branch-drop-sub {
+      width: 2px; height: 36px;
+      background: #f0a060;
+    }
+
+    /* ── legend ── */
+    .legend {
+      max-width: 560px; margin: 50px auto 0;
+      background: #fff; border-radius: 10px;
+      padding: 20px; border: 1px solid #f0dcc8;
+    }
     .legend h3 { color: #e65c00; margin-bottom: 12px; }
     .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; }
-    .legend-box { width: 24px; height: 18px; border-radius: 4px; flex-shrink: 0; }
+    .lbox { width: 24px; height: 18px; border-radius: 4px; flex-shrink: 0; }
   </style>
 </head>
 <body>
 
-  <h1>🍽️ Recipe Book — XML Structure</h1>
-  <p class="sub">How the data is organised in <code>recipes.xml</code></p>
+<h1>🍽️ Recipe Book — XML Structure</h1>
+<p class="sub">How the data is organised in <code>recipes.xml</code></p>
 
-  <!--
-    Canvas: 1200 wide × 520 tall
+<div class="tree">
 
-    Row Y positions:
-      Root rect top     : y=10,  centre-y=26
-      Root bottom       : y=42
-      Recipe rect top   : y=100, centre-y=116
-      Recipe bottom     : y=132
-      H-bar             : y=170
-      Level-2 rect top  : y=170, centre-y=186
-      Level-2 bottom    : y=202
-      Value / sub-H-bar : y=250
-      Sub-nodes top     : y=310
-      Sub-nodes bottom  : y=342
-      Sub-values top    : y=390
+  <!-- ROOT -->
+  <div class="node root">&lt;recipes&gt;</div>
+  <div class="v-line"></div>
 
-    Level-2 x-centres (evenly spaced, 200px apart):
-      title        = 100
-      category     = 300
-      cookingtime  = 500
-      ingredients  = 720
-      steps        = 1000
+  <!-- RECIPE -->
+  <div class="node lvl1">&lt;recipe id="1"&gt; &times;4 <span class="badge">id attr</span></div>
+  <div class="v-line"></div>
 
-    ingredients children x-centres:  item=640, item×n=800
-    steps children x-centres:        step=920, step×n=1080
-  -->
-
-  <svg width="1200" height="520" viewBox="0 0 1200 520">
-
-    <!-- ── root → recipe ── -->
-    <line x1="600" y1="42"  x2="600" y2="100" stroke="#e65c00" stroke-width="2"/>
-
-    <!-- ── recipe → h-bar ── -->
-    <line x1="600" y1="132" x2="600" y2="170" stroke="#e65c00" stroke-width="2"/>
-
-    <!-- ── h-bar across all 5 level-2 nodes ── -->
-    <line x1="100" y1="170" x2="1000" y2="170" stroke="#e65c00" stroke-width="2"/>
-
-    <!-- ── h-bar → each level-2 ── -->
-    <line x1="100"  y1="170" x2="100"  y2="202" stroke="#e65c00" stroke-width="2"/>
-    <line x1="300"  y1="170" x2="300"  y2="202" stroke="#e65c00" stroke-width="2"/>
-    <line x1="500"  y1="170" x2="500"  y2="202" stroke="#e65c00" stroke-width="2"/>
-    <line x1="720"  y1="170" x2="720"  y2="202" stroke="#e65c00" stroke-width="2"/>
-    <line x1="1000" y1="170" x2="1000" y2="202" stroke="#e65c00" stroke-width="2"/>
-
-    <!-- ── title / category / cookingtime → values ── -->
-    <line x1="100" y1="234" x2="100" y2="270" stroke="#e65c00" stroke-width="2" stroke-dasharray="4,3"/>
-    <line x1="300" y1="234" x2="300" y2="270" stroke="#e65c00" stroke-width="2" stroke-dasharray="4,3"/>
-    <line x1="500" y1="234" x2="500" y2="270" stroke="#e65c00" stroke-width="2" stroke-dasharray="4,3"/>
-
-    <!-- ── ingredients → sub h-bar ── -->
-    <line x1="720" y1="234" x2="720" y2="270" stroke="#e65c00" stroke-width="2"/>
-    <line x1="640" y1="270" x2="800" y2="270" stroke="#f0a060" stroke-width="2"/>
-    <line x1="640" y1="270" x2="640" y2="310" stroke="#f0a060" stroke-width="2"/>
-    <line x1="800" y1="270" x2="800" y2="310" stroke="#f0a060" stroke-width="2"/>
-
-    <!-- ── steps → sub h-bar ── -->
-    <line x1="1000" y1="234" x2="1000" y2="270" stroke="#e65c00" stroke-width="2"/>
-    <line x1="920"  y1="270" x2="1080" y2="270" stroke="#f0a060" stroke-width="2"/>
-    <line x1="920"  y1="270" x2="920"  y2="310" stroke="#f0a060" stroke-width="2"/>
-    <line x1="1080" y1="270" x2="1080" y2="310" stroke="#f0a060" stroke-width="2"/>
-
-    <!-- ── item / step → example values ── -->
-    <line x1="640"  y1="342" x2="640"  y2="390" stroke="#f0a060" stroke-width="2" stroke-dasharray="4,3"/>
-    <line x1="920"  y1="342" x2="920"  y2="390" stroke="#f0a060" stroke-width="2" stroke-dasharray="4,3"/>
-
-
-    <!-- ════════ NODES ════════ -->
-
-    <!-- root -->
-    <rect x="460" y="10" width="280" height="32" rx="8" fill="#e65c00"/>
-    <text x="600" y="31" text-anchor="middle" fill="white" font-size="15" font-weight="bold" font-family="Arial">&lt;recipes&gt;</text>
-
-    <!-- recipe -->
-    <rect x="370" y="100" width="320" height="32" rx="8" fill="#f07b2a"/>
-    <text x="510" y="121" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="Arial">&lt;recipe id="1"&gt;  ×4</text>
-    <rect x="672" y="103" width="56" height="22" rx="4" fill="#c44a00"/>
-    <text x="700" y="118" text-anchor="middle" fill="white" font-size="10" font-family="Arial">id attr</text>
+  <!-- LEVEL-2 ROW -->
+  <div class="children">
 
     <!-- title -->
-    <rect x="28" y="202" width="144" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
-    <text x="100" y="223" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;title&gt;</text>
+    <div class="branch">
+      <div class="branch-drop"></div>
+      <div class="node lvl2">&lt;title&gt;</div>
+      <div class="v-dash"></div>
+      <div class="node val">Jollof Rice</div>
+    </div>
 
     <!-- category -->
-    <rect x="218" y="202" width="164" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
-    <text x="300" y="223" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;category&gt;</text>
+    <div class="branch">
+      <div class="branch-drop"></div>
+      <div class="node lvl2">&lt;category&gt;</div>
+      <div class="v-dash"></div>
+      <div class="node val">Main Course</div>
+    </div>
 
     <!-- cookingtime -->
-    <rect x="406" y="202" width="188" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
-    <text x="500" y="223" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;cookingtime&gt;</text>
+    <div class="branch">
+      <div class="branch-drop"></div>
+      <div class="node lvl2">&lt;cookingtime&gt;</div>
+      <div class="v-dash"></div>
+      <div class="node val">45 minutes</div>
+    </div>
 
     <!-- ingredients -->
-    <rect x="636" y="202" width="168" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
-    <text x="720" y="223" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;ingredients&gt;</text>
+    <div class="branch">
+      <div class="branch-drop"></div>
+      <div class="node lvl2">&lt;ingredients&gt;</div>
+      <div class="v-line"></div>
+      <!-- sub-row -->
+      <div class="children children-sub">
+        <div class="branch">
+          <div class="branch-drop-sub"></div>
+          <div class="node lvl3">&lt;item&gt;</div>
+          <div class="v-dash-sub"></div>
+          <div class="node val3">2 cups rice</div>
+        </div>
+        <div class="branch">
+          <div class="branch-drop-sub"></div>
+          <div class="node lvl3">&lt;item&gt; &times;n</div>
+        </div>
+      </div>
+    </div>
 
     <!-- steps -->
-    <rect x="916" y="202" width="168" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
-    <text x="1000" y="223" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;steps&gt;</text>
+    <div class="branch">
+      <div class="branch-drop"></div>
+      <div class="node lvl2">&lt;steps&gt;</div>
+      <div class="v-line"></div>
+      <!-- sub-row -->
+      <div class="children children-sub">
+        <div class="branch">
+          <div class="branch-drop-sub"></div>
+          <div class="node lvl3">&lt;step&gt;</div>
+          <div class="v-dash-sub"></div>
+          <div class="node val3">Blend tomatoes…</div>
+        </div>
+        <div class="branch">
+          <div class="branch-drop-sub"></div>
+          <div class="node lvl3">&lt;step&gt; &times;n</div>
+        </div>
+      </div>
+    </div>
 
-    <!-- title value -->
-    <rect x="28" y="270" width="144" height="32" rx="8" fill="#fff3e0" stroke="#e65c00" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="100" y="291" text-anchor="middle" fill="#b84a00" font-size="12" font-family="Arial">Jollof Rice</text>
-
-    <!-- category value -->
-    <rect x="218" y="270" width="164" height="32" rx="8" fill="#fff3e0" stroke="#e65c00" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="300" y="291" text-anchor="middle" fill="#b84a00" font-size="12" font-family="Arial">Main Course</text>
-
-    <!-- cookingtime value -->
-    <rect x="410" y="270" width="180" height="32" rx="8" fill="#fff3e0" stroke="#e65c00" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="500" y="291" text-anchor="middle" fill="#b84a00" font-size="12" font-family="Arial">45 minutes</text>
-
-    <!-- item -->
-    <rect x="568" y="310" width="144" height="32" rx="8" fill="#fff8f0" stroke="#f0a060" stroke-width="2"/>
-    <text x="640" y="331" text-anchor="middle" fill="#555" font-size="13" font-family="Arial">&lt;item&gt;</text>
-
-    <!-- item ×n -->
-    <rect x="728" y="310" width="144" height="32" rx="8" fill="#fff8f0" stroke="#f0a060" stroke-width="2"/>
-    <text x="800" y="331" text-anchor="middle" fill="#555" font-size="13" font-family="Arial">&lt;item&gt; ×n</text>
-
-    <!-- step -->
-    <rect x="848" y="310" width="144" height="32" rx="8" fill="#fff8f0" stroke="#f0a060" stroke-width="2"/>
-    <text x="920" y="331" text-anchor="middle" fill="#555" font-size="13" font-family="Arial">&lt;step&gt;</text>
-
-    <!-- step ×n -->
-    <rect x="1008" y="310" width="144" height="32" rx="8" fill="#fff8f0" stroke="#f0a060" stroke-width="2"/>
-    <text x="1080" y="331" text-anchor="middle" fill="#555" font-size="13" font-family="Arial">&lt;step&gt; ×n</text>
-
-    <!-- item value -->
-    <rect x="562" y="390" width="156" height="32" rx="8" fill="#fff3e0" stroke="#f0a060" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="640" y="411" text-anchor="middle" fill="#b84a00" font-size="12" font-family="Arial">2 cups rice</text>
-
-    <!-- step value -->
-    <rect x="836" y="390" width="168" height="40" rx="8" fill="#fff3e0" stroke="#f0a060" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="920" y="408" text-anchor="middle" fill="#b84a00" font-size="11" font-family="Arial">Blend tomatoes</text>
-    <text x="920" y="423" text-anchor="middle" fill="#b84a00" font-size="11" font-family="Arial">and onions…</text>
-
-  </svg>
-
-  <div class="legend">
-    <h3>🔑 Legend</h3>
-    <div class="legend-item"><div class="legend-box" style="background:#e65c00;"></div> Root element — wraps all recipes</div>
-    <div class="legend-item"><div class="legend-box" style="background:#f07b2a;"></div> Repeating element — one per recipe (×4), has an <strong>id</strong> attribute</div>
-    <div class="legend-item"><div class="legend-box" style="background:#fff; border:2px solid #e65c00;"></div> Child element — one piece of recipe info</div>
-    <div class="legend-item"><div class="legend-box" style="background:#fff8f0; border:2px solid #f0a060;"></div> Nested child — repeats for each ingredient / step</div>
-    <div class="legend-item"><div class="legend-box" style="background:#fff3e0; border:1px dashed #e65c00;"></div> Example value stored inside the element</div>
   </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <h3>🔑 Legend</h3>
+  <div class="legend-item"><div class="lbox" style="background:#e65c00;"></div> Root element — wraps all recipes</div>
+  <div class="legend-item"><div class="lbox" style="background:#f07b2a;"></div> Repeating element — one per recipe (×4), has an <strong>id</strong> attribute</div>
+  <div class="legend-item"><div class="lbox" style="background:#fff; border:2px solid #e65c00;"></div> Child element — one piece of recipe info</div>
+  <div class="legend-item"><div class="lbox" style="background:#fff8f0; border:2px solid #f0a060;"></div> Nested child — repeats for each ingredient / step</div>
+  <div class="legend-item"><div class="lbox" style="background:#fff3e0; border:1px dashed #e65c00;"></div> Example value stored inside the element</div>
+</div>
 
 </body>
 </html>
