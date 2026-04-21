@@ -19,9 +19,10 @@
     .stars { color: #f5c518; }
     #message { color: #aaa; margin-top: 20px; }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <h1>&#127916; Movie Catalog</h1>
+  <h1><i class="fa fa-film"></i> Movie Catalog</h1>
   <div class="controls">
     <input type="text" id="search" placeholder="Search title…" oninput="filter()">
     <select id="genre" onchange="filter()">
@@ -59,7 +60,7 @@
           <td>${m.title}</td>
           <td>${m.genre}</td>
           <td>${m.year}</td>
-          <td><span class="stars">&#9733;</span> ${m.rating.toFixed(1)}</td>
+          <td><span class="stars"><i class="fa fa-star"></i></span> ${m.rating.toFixed(1)}</td>
         </tr>`).join("");
       document.getElementById("message").textContent = list.length === 0 ? "No movies found." : "";
     }

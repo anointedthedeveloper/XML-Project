@@ -6,6 +6,7 @@
     <html>
     <head>
       <title>Weather Data</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
       <style>
         body  { font-family: Arial, sans-serif; background-color: #e8f4fc; max-width: 800px; margin: 40px auto; }
         h1    { color: #1a73e8; }
@@ -16,7 +17,7 @@
       </style>
     </head>
     <body>
-      <h1>&#127780; Weather Report</h1>
+      <h1><i class="fa fa-cloud-sun"></i> Weather Report</h1>
       <table>
         <tr>
           <th>City</th>

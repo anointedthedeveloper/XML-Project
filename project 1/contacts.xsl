@@ -6,9 +6,11 @@
     <html>
     <head>
       <title>Address Book</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
       <style>
         body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; }
         h1   { color: #333; }
+        h1 i { margin-right: 8px; color: #4a90d9; }
         table { width: 100%; border-collapse: collapse; }
         th   { background-color: #4a90d9; color: #fff; padding: 10px; text-align: left; }
         td   { padding: 9px 10px; border-bottom: 1px solid #ddd; }
@@ -16,7 +18,7 @@
       </style>
     </head>
     <body>
-      <h1>&#128100; Address Book</h1>
+      <h1><i class="fa fa-address-book"></i> Address Book</h1>
       <table>
         <tr><th>Name</th><th>Phone</th><th>Email</th></tr>
         <xsl:for-each select="addressbook/contact">

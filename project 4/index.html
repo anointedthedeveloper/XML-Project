@@ -66,10 +66,11 @@
     td { padding: 9px 10px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; }
     tr:hover td { background: rgba(255,255,255,0.08); }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-  <h1>&#127780; Weather Forecast</h1>
+  <h1><i class="fa fa-cloud-sun"></i> Weather Forecast</h1>
   <p class="sub">Type a city name to get current weather conditions</p>
 
   <div class="search-box">
@@ -87,10 +88,10 @@
     </div>
   </div>
 
-  <div class="error" id="error">&#10060; City not found. Try: Lagos, London, New York, Tokyo, Dubai, Paris, Sydney</div>
+  <div class="error" id="error"><i class="fa fa-circle-xmark"></i> City not found. Try: Lagos, Abuja, Kano, Port Harcourt, Ibadan, Enugu, Kaduna</div>
 
   <div class="all-cities">
-    <h3>&#127758; All Cities</h3>
+    <h3><i class="fa fa-globe"></i> All Cities</h3>
     <table>
       <thead><tr><th>City</th><th>Temp</th><th>Humidity</th><th>Wind</th><th>Condition</th></tr></thead>
       <tbody id="allCities"></tbody>

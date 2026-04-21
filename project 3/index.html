@@ -31,10 +31,11 @@
 
     #noResult { text-align: center; color: #aaa; margin-top: 40px; display: none; }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-  <h1>&#127859; Recipe Book</h1>
+  <h1><i class="fa fa-utensils"></i> Recipe Book</h1>
   <p class="sub">Browse recipes or search by name and category</p>
 
   <div class="controls">
@@ -87,10 +88,10 @@
       noResult.style.display = "none";
       grid.innerHTML = list.map(r => `
         <div class="card">
-          <h2>&#127860; ${r.title}</h2>
+          <h2><i class="fa fa-bowl-food"></i> ${r.title}</h2>
           <p class="meta">
-            <span>&#127860; ${r.category}</span>
-            <span>&#9201; ${r.time}</span>
+            <span><i class="fa fa-tag"></i> ${r.category}</span>
+            <span><i class="fa fa-clock"></i> ${r.time}</span>
           </p>
           <h4>Ingredients</h4>
           <ul>${r.ingredients.map(i => `<li>${i}</li>`).join("")}</ul>

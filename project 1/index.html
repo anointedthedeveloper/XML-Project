@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Address Book</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body  { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; }
     h1    { color: #333; }
+    h1 i  { margin-right: 8px; color: #4a90d9; }
     input { width: 100%; padding: 8px; margin-bottom: 16px; box-sizing: border-box;
             border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
     table { width: 100%; border-collapse: collapse; }
@@ -15,7 +17,7 @@
   </style>
 </head>
 <body>
-  <h1>&#128100; Address Book</h1>
+  <h1><i class="fa fa-address-book"></i> Address Book</h1>
   <input type="text" id="search" placeholder="Search by name, phone or email…" oninput="filterTable()">
   <div id="output"></div>
 

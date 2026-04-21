@@ -6,6 +6,7 @@
     <html>
     <head>
       <title>Recipe Book</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
       <style>
         body  { font-family: Arial, sans-serif; background-color: #fffaf4; max-width: 900px; margin: 40px auto; padding: 0 20px; }
         h1    { color: #e65c00; }
@@ -18,13 +19,13 @@
       </style>
     </head>
     <body>
-      <h1>&#127859; Recipe Book</h1>
+      <h1><i class="fa fa-utensils"></i> Recipe Book</h1>
       <xsl:for-each select="recipes/recipe">
         <div class="card">
           <h2><xsl:value-of select="title"/></h2>
           <p class="meta">
-            &#127860; <xsl:value-of select="category"/> &#160;|&#160;
-            &#9201; <xsl:value-of select="cookingtime"/>
+            <i class="fa fa-tag"></i> <xsl:value-of select="category"/> &#160;|&#160;
+            <i class="fa fa-clock"></i> <xsl:value-of select="cookingtime"/>
           </p>
           <h4>Ingredients</h4>
           <ul>
