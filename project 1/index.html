@@ -5,49 +5,89 @@
   <title>Address Book</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    body  { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; }
-    h1    { color: #333; }
-    h1 i  { margin-right: 8px; color: #4a90d9; }
-    input { width: 100%; padding: 8px; margin-bottom: 16px; box-sizing: border-box;
-            border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: Arial, sans-serif; background-color: #f0f7ff; overflow: hidden; }
+
+    .page { height: 100vh; display: flex; flex-direction: column; padding: 24px 40px 20px; }
+
+    h1 { color: #1a56a0; font-size: 1.6rem; margin-bottom: 16px; }
+    h1 i { margin-right: 10px; color: #4a90d9; }
+
+    input {
+      width: 100%; padding: 10px 14px;
+      border: 1px solid #ccc; font-size: 1rem;
+      margin-bottom: 16px; outline: none;
+    }
+    input:focus { border-color: #4a90d9; }
+
+    .table-wrap { flex: 1; overflow: auto; }
+
     table { width: 100%; border-collapse: collapse; }
-    th    { background: #4a90d9; color: #fff; padding: 10px; text-align: left; }
-    td    { padding: 9px 10px; border-bottom: 1px solid #ddd; }
-    tr:hover td { background: #f0f7ff; }
+    th { background-color: #4a90d9; color: #fff; padding: 12px 10px; text-align: left; font-size: 1rem; }
+    td { padding: 10px; border-bottom: 1px solid #ddd; font-size: 0.95rem; }
+    tr:hover td { background-color: #e8f4ff; }
+    td a { color: #1a56a0; text-decoration: none; }
+    td a:hover { text-decoration: underline; }
+
+    #noResult { text-align: center; color: #aaa; margin-top: 30px; display: none; font-size: 1rem; }
   </style>
 </head>
 <body>
+<div class="page">
+
   <h1><i class="fa fa-address-book"></i> Address Book</h1>
-  <input type="text" id="search" placeholder="Search by name, phone or email…" oninput="filterTable()">
-  <div id="output"></div>
+  <input type="text" id="search" placeholder="Search by name, phone or email…" oninput="filter()">
 
-  <script>
-    let rows = [];
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th><i class="fa fa-user"></i> Name</th>
+          <th><i class="fa fa-phone"></i> Phone</th>
+          <th><i class="fa fa-envelope"></i> Email</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <p id="noResult">No contacts found.</p>
+  </div>
 
-    async function loadContacts() {
-      const [xmlRes, xslRes] = await Promise.all([
-        fetch("contacts.xml"),
-        fetch("contacts.xsl")
-      ]);
-      const xml = new DOMParser().parseFromString(await xmlRes.text(), "application/xml");
-      const xsl = new DOMParser().parseFromString(await xslRes.text(), "application/xml");
+</div>
 
-      const processor = new XSLTProcessor();
-      processor.importStylesheet(xsl);
-      const result = processor.transformToFragment(xml, document);
-      document.getElementById("output").appendChild(result);
+<script>
+  let contacts = [];
 
-      rows = [...document.querySelectorAll("#output table tr")].slice(1); // skip header
-    }
+  fetch("contacts.xml")
+    .then(r => r.text())
+    .then(xmlText => {
+      const xml = new DOMParser().parseFromString(xmlText, "application/xml");
+      contacts = [...xml.querySelectorAll("contact")].map(c => ({
+        name:  c.querySelector("name").textContent,
+        phone: c.querySelector("phone").textContent,
+        email: c.querySelector("email").textContent
+      }));
+      render(contacts);
+    });
 
-    function filterTable() {
-      const q = document.getElementById("search").value.toLowerCase();
-      rows.forEach(row => {
-        row.style.display = row.textContent.toLowerCase().includes(q) ? "" : "none";
-      });
-    }
+  function render(list) {
+    document.getElementById("tbody").innerHTML = list.map(c => `
+      <tr>
+        <td>${c.name}</td>
+        <td>${c.phone}</td>
+        <td><a href="mailto:${c.email}">${c.email}</a></td>
+      </tr>
+    `).join("");
+    document.getElementById("noResult").style.display = list.length === 0 ? "block" : "none";
+  }
 
-    loadContacts();
-  </script>
+  function filter() {
+    const q = document.getElementById("search").value.toLowerCase();
+    render(contacts.filter(c =>
+      c.name.toLowerCase().includes(q) ||
+      c.phone.toLowerCase().includes(q) ||
+      c.email.toLowerCase().includes(q)
+    ));
+  }
+</script>
 </body>
 </html>

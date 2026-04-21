@@ -5,48 +5,40 @@
   <title>Recipe Book</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body  { font-family: Arial, sans-serif; background: #fffaf4; padding: 40px 20px; }
-    h1    { color: #e65c00; text-align: center; margin-bottom: 6px; font-size: 2rem; }
-    p.sub { text-align: center; color: #888; margin-bottom: 28px; }
-
-    .controls { display: flex; gap: 10px; max-width: 700px; margin: 0 auto 32px; }
-    input, select {
-      flex: 1; padding: 10px 14px; border: 1px solid #e0c8a8;
-      border-radius: 8px; font-size: 14px; background: #fff;
-    }
-
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
-
-    .card {
-      background: #fff; border: 1px solid #f0dcc8;
-      border-radius: 12px; padding: 22px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-    .card h2  { color: #e65c00; margin-bottom: 6px; font-size: 1.15rem; }
-    .meta     { font-size: 0.82rem; color: #999; margin-bottom: 14px; }
+    html, body { height: 100%; font-family: Arial, sans-serif; background-color: #fffaf4; overflow: hidden; }
+    .page { height: 100vh; display: flex; flex-direction: column; padding: 20px 40px 16px; }
+    h1    { color: #e65c00; font-size: 1.6rem; margin-bottom: 4px; }
+    h1 i  { margin-right: 10px; }
+    p.sub { color: #888; margin-bottom: 14px; font-size: 0.9rem; }
+    .controls { display: flex; gap: 10px; margin-bottom: 14px; }
+    input, select { flex: 1; padding: 10px 14px; border: 1px solid #e0c8a8; font-size: 1rem; background-color: #fff; outline: none; }
+    .grid-wrap { flex: 1; overflow: auto; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .card { background-color: #fff; border: 1px solid #f0dcc8; padding: 18px; }
+    .card h2  { color: #e65c00; margin-bottom: 6px; font-size: 1.05rem; }
+    .meta     { font-size: 0.82rem; color: #999; margin-bottom: 12px; }
     .meta span { margin-right: 12px; }
-    h4        { font-size: 0.88rem; color: #555; margin: 12px 0 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+    h4        { font-size: 0.85rem; color: #555; margin: 10px 0 5px; text-transform: uppercase; }
     ul, ol    { padding-left: 18px; }
-    li        { font-size: 0.9rem; margin-bottom: 4px; color: #444; }
-
+    li        { font-size: 0.88rem; margin-bottom: 3px; color: #444; }
     #noResult { text-align: center; color: #aaa; margin-top: 40px; display: none; }
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-
+<div class="page">
   <h1><i class="fa fa-utensils"></i> Recipe Book</h1>
   <p class="sub">Browse recipes or search by name and category</p>
-
   <div class="controls">
     <input type="text" id="search" placeholder="Search recipe…" oninput="filter()">
     <select id="category" onchange="filter()">
       <option value="">All Categories</option>
     </select>
   </div>
-
-  <div class="grid" id="grid"></div>
-  <p id="noResult">No recipes found.</p>
+  <div class="grid-wrap">
+    <div class="grid" id="grid"></div>
+    <p id="noResult">No recipes found.</p>
+  </div>
 
   <script>
     let recipes = [];
@@ -109,5 +101,6 @@
       ));
     }
   </script>
+</div>
 </body>
 </html>
