@@ -26,69 +26,67 @@
   </recipe>
 
   <recipe id="2">
-    <title>Spaghetti Bolognese</title>
+    <title>Egusi Soup</title>
     <category>Main Course</category>
-    <cookingtime>40 minutes</cookingtime>
+    <cookingtime>50 minutes</cookingtime>
     <ingredients>
-      <item>300g spaghetti</item>
-      <item>250g minced beef</item>
-      <item>1 can chopped tomatoes</item>
-      <item>1 onion, diced</item>
-      <item>2 garlic cloves, minced</item>
-      <item>1 tbsp olive oil</item>
-      <item>1 tsp oregano</item>
+      <item>2 cups ground egusi (melon seeds)</item>
+      <item>500g assorted meat (beef, tripe)</item>
+      <item>2 cups stockfish, soaked</item>
+      <item>3 tbsp palm oil</item>
+      <item>2 cups spinach or bitter leaf</item>
+      <item>2 seasoning cubes</item>
+      <item>1 tsp crayfish, ground</item>
       <item>Salt and pepper to taste</item>
     </ingredients>
     <steps>
-      <step>Heat olive oil in a pan, fry onion and garlic until soft.</step>
-      <step>Add minced beef and cook until browned.</step>
-      <step>Stir in chopped tomatoes, oregano, salt and pepper.</step>
-      <step>Simmer on low heat for 20 minutes.</step>
-      <step>Cook spaghetti according to package instructions and serve with sauce.</step>
+      <step>Boil assorted meat with seasoning cubes and salt until tender.</step>
+      <step>Heat palm oil in a pot, mix in ground egusi and fry for 5 minutes.</step>
+      <step>Add meat stock and stir well. Cook for 10 minutes.</step>
+      <step>Add meat, stockfish, crayfish and pepper. Simmer for 15 minutes.</step>
+      <step>Stir in washed spinach, cook for 5 more minutes and serve with eba or pounded yam.</step>
     </steps>
   </recipe>
 
   <recipe id="3">
-    <title>Pancakes</title>
+    <title>Akara (Bean Cakes)</title>
     <category>Breakfast</category>
-    <cookingtime>20 minutes</cookingtime>
+    <cookingtime>30 minutes</cookingtime>
     <ingredients>
-      <item>1 cup all-purpose flour</item>
-      <item>1 cup milk</item>
-      <item>1 egg</item>
-      <item>2 tbsp sugar</item>
-      <item>1 tsp baking powder</item>
-      <item>Pinch of salt</item>
-      <item>Butter for frying</item>
+      <item>2 cups black-eyed beans, peeled</item>
+      <item>1 small onion, chopped</item>
+      <item>1 scotch bonnet pepper</item>
+      <item>Salt to taste</item>
+      <item>Vegetable oil for frying</item>
     </ingredients>
     <steps>
-      <step>Mix flour, sugar, baking powder and salt in a bowl.</step>
-      <step>Whisk in egg and milk until a smooth batter forms.</step>
-      <step>Heat butter in a non-stick pan over medium heat.</step>
-      <step>Pour a ladle of batter and cook until bubbles form, then flip.</step>
-      <step>Cook for 1 more minute and serve with syrup or fruit.</step>
+      <step>Soak beans in water for 30 minutes, then peel off the skins.</step>
+      <step>Blend beans with onion and pepper into a smooth thick batter.</step>
+      <step>Add salt and whisk the batter vigorously to make it fluffy.</step>
+      <step>Heat oil in a deep pan over medium heat.</step>
+      <step>Drop spoonfuls of batter into the oil and fry until golden brown on both sides.</step>
     </steps>
   </recipe>
 
   <recipe id="4">
-    <title>Vegetable Stir Fry</title>
+    <title>Vegetable Soup (Edikang Ikong)</title>
     <category>Vegetarian</category>
-    <cookingtime>15 minutes</cookingtime>
+    <cookingtime>35 minutes</cookingtime>
     <ingredients>
-      <item>1 bell pepper, sliced</item>
-      <item>1 carrot, julienned</item>
-      <item>1 cup broccoli florets</item>
-      <item>2 tbsp soy sauce</item>
-      <item>1 tbsp sesame oil</item>
-      <item>2 garlic cloves, minced</item>
-      <item>1 tsp ginger, grated</item>
+      <item>3 cups ugwu (fluted pumpkin leaves), shredded</item>
+      <item>1 cup waterleaf, chopped</item>
+      <item>3 tbsp palm oil</item>
+      <item>1 cup periwinkles</item>
+      <item>1 tsp ground crayfish</item>
+      <item>2 seasoning cubes</item>
+      <item>Salt and pepper to taste</item>
     </ingredients>
     <steps>
-      <step>Heat sesame oil in a wok over high heat.</step>
-      <step>Add garlic and ginger, stir for 30 seconds.</step>
-      <step>Add all vegetables and stir fry for 5–7 minutes.</step>
-      <step>Pour in soy sauce and toss to coat evenly.</step>
-      <step>Serve immediately over rice or noodles.</step>
+      <step>Heat palm oil in a pot over medium heat.</step>
+      <step>Add periwinkles, crayfish, seasoning cubes, pepper and salt. Stir well.</step>
+      <step>Add waterleaf first and cook for 3 minutes until it wilts.</step>
+      <step>Add ugwu leaves and stir to combine. Cook for 5 minutes.</step>
+      <step>Serve hot with eba, pounded yam or fufu.</step>
     </steps>
   </recipe>
 

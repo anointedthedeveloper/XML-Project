@@ -7,40 +7,40 @@
     <windspeed unit="km/h">14</windspeed>
     <condition>Sunny</condition>
   </city>
-  <city name="London">
-    <temperature unit="°C">12</temperature>
-    <humidity unit="%">85</humidity>
-    <windspeed unit="km/h">22</windspeed>
-    <condition>Cloudy</condition>
+  <city name="Abuja">
+    <temperature unit="°C">35</temperature>
+    <humidity unit="%">42</humidity>
+    <windspeed unit="km/h">11</windspeed>
+    <condition>Hot and Dry</condition>
   </city>
-  <city name="New York">
-    <temperature unit="°C">18</temperature>
-    <humidity unit="%">60</humidity>
+  <city name="Kano">
+    <temperature unit="°C">38</temperature>
+    <humidity unit="%">25</humidity>
     <windspeed unit="km/h">18</windspeed>
-    <condition>Partly Cloudy</condition>
+    <condition>Dusty</condition>
   </city>
-  <city name="Tokyo">
-    <temperature unit="°C">24</temperature>
-    <humidity unit="%">70</humidity>
+  <city name="Port Harcourt">
+    <temperature unit="°C">30</temperature>
+    <humidity unit="%">88</humidity>
     <windspeed unit="km/h">10</windspeed>
-    <condition>Clear</condition>
-  </city>
-  <city name="Dubai">
-    <temperature unit="°C">41</temperature>
-    <humidity unit="%">45</humidity>
-    <windspeed unit="km/h">20</windspeed>
-    <condition>Hot and Sunny</condition>
-  </city>
-  <city name="Paris">
-    <temperature unit="°C">15</temperature>
-    <humidity unit="%">72</humidity>
-    <windspeed unit="km/h">16</windspeed>
     <condition>Rainy</condition>
   </city>
-  <city name="Sydney">
-    <temperature unit="°C">27</temperature>
-    <humidity unit="%">65</humidity>
-    <windspeed unit="km/h">25</windspeed>
-    <condition>Windy</condition>
+  <city name="Ibadan">
+    <temperature unit="°C">31</temperature>
+    <humidity unit="%">72</humidity>
+    <windspeed unit="km/h">12</windspeed>
+    <condition>Partly Cloudy</condition>
+  </city>
+  <city name="Enugu">
+    <temperature unit="°C">29</temperature>
+    <humidity unit="%">80</humidity>
+    <windspeed unit="km/h">9</windspeed>
+    <condition>Cloudy</condition>
+  </city>
+  <city name="Kaduna">
+    <temperature unit="°C">33</temperature>
+    <humidity unit="%">50</humidity>
+    <windspeed unit="km/h">15</windspeed>
+    <condition>Clear</condition>
   </city>
 </weatherdata>
