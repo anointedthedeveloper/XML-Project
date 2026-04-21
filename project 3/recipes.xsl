@@ -7,9 +7,9 @@
     <head>
       <title>Recipe Book</title>
       <style>
-        body  { font-family: Arial, sans-serif; background: #fffaf4; max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        body  { font-family: Arial, sans-serif; background-color: #fffaf4; max-width: 900px; margin: 40px auto; padding: 0 20px; }
         h1    { color: #e65c00; }
-        .card { background: #fff; border: 1px solid #f0dcc8; border-radius: 10px; padding: 20px; margin-bottom: 24px; }
+        .card { background-color: #fff; border: 1px solid #f0dcc8; padding: 20px; margin-bottom: 24px; }
         .card h2  { color: #e65c00; margin-bottom: 4px; }
         .meta     { font-size: 0.85rem; color: #888; margin-bottom: 12px; }
         h4        { margin: 10px 0 6px; color: #555; }

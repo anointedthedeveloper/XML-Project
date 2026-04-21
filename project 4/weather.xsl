@@ -7,12 +7,12 @@
     <head>
       <title>Weather Data</title>
       <style>
-        body  { font-family: Arial, sans-serif; background: #e8f4fc; max-width: 800px; margin: 40px auto; }
+        body  { font-family: Arial, sans-serif; background-color: #e8f4fc; max-width: 800px; margin: 40px auto; }
         h1    { color: #1a73e8; }
-        table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; }
-        th    { background: #1a73e8; color: #fff; padding: 12px; text-align: left; }
+        table { width: 100%; border-collapse: collapse; background-color: #fff; }
+        th    { background-color: #1a73e8; color: #fff; padding: 12px; text-align: left; }
         td    { padding: 10px 12px; border-bottom: 1px solid #dce8f5; }
-        tr:hover td { background: #f0f7ff; }
+        tr:hover td { background-color: #f0f7ff; }
       </style>
     </head>
     <body>

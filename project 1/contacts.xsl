@@ -10,9 +10,9 @@
         body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; }
         h1   { color: #333; }
         table { width: 100%; border-collapse: collapse; }
-        th   { background: #4a90d9; color: #fff; padding: 10px; text-align: left; }
+        th   { background-color: #4a90d9; color: #fff; padding: 10px; text-align: left; }
         td   { padding: 9px 10px; border-bottom: 1px solid #ddd; }
-        tr:hover td { background: #f0f7ff; }
+        tr:hover td { background-color: #f0f7ff; }
       </style>
     </head>
     <body>
