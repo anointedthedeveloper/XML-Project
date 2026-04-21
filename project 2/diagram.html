@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Catalog – JSON Diagram</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #0f0f0f; color: #eee; padding: 40px 20px; }
+    h1 { text-align: center; color: #e50914; margin-bottom: 6px; }
+    p.sub { text-align: center; color: #888; margin-bottom: 40px; font-size: 0.9rem; }
+
+    .tree { display: flex; flex-direction: column; align-items: center; }
+    .node { border-radius: 8px; padding: 10px 22px; font-size: 0.9rem; font-weight: bold; text-align: center; }
+    .root   { background: #e50914; color: #fff; font-size: 1rem; padding: 12px 32px; }
+    .level1 { background: #b00610; color: #fff; }
+    .level2 { background: #1a1a1a; color: #eee; border: 2px solid #e50914; font-weight: normal; min-width: 120px; }
+    .attr   { background: #2a2a2a; color: #f5c518; border: 1px dashed #e50914; font-size: 0.8rem; font-weight: normal; }
+
+    .connector { width: 2px; background: #e50914; height: 28px; margin: 0 auto; }
+    .branch { display: flex; flex-direction: column; align-items: center; padding: 0 16px; }
+    .branch-connector { width: 2px; background: #e50914; height: 28px; }
+
+    .legend { max-width: 500px; margin: 50px auto 0; background: #1a1a1a; border-radius: 10px; padding: 20px; border: 1px solid #333; }
+    .legend h3 { color: #e50914; margin-bottom: 12px; }
+    .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; color: #ccc; }
+    .legend-box { width: 24px; height: 18px; border-radius: 4px; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+  <h1>🎬 Movie Catalog — JSON Structure</h1>
+  <p class="sub">How the data is organised in <code>movies.json</code></p>
+
+  <div class="tree">
+
+    <!-- Root object -->
+    <div class="node root">{ } Root Object</div>
+    <div class="connector"></div>
+
+    <!-- movies array -->
+    <div class="node level1">"movies": [ ] Array × 6 items</div>
+    <div class="connector"></div>
+
+    <!-- one movie object -->
+    <div class="node level1">{ } Movie Object</div>
+    <div class="connector"></div>
+
+    <!-- h-line across fields -->
+    <div style="position:relative; width:620px;">
+      <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); height:2px; background:#e50914; width:540px;"></div>
+      <div style="display:flex; justify-content:space-around; padding-top:0;">
+
+        <div class="branch">
+          <div class="branch-connector"></div>
+          <div class="node level2">"title"</div>
+          <div class="connector" style="height:16px;"></div>
+          <div class="node attr">"King of Boys"</div>
+        </div>
+
+        <div class="branch">
+          <div class="branch-connector"></div>
+          <div class="node level2">"genre"</div>
+          <div class="connector" style="height:16px;"></div>
+          <div class="node attr">"Thriller"</div>
+        </div>
+
+        <div class="branch">
+          <div class="branch-connector"></div>
+          <div class="node level2">"year"</div>
+          <div class="connector" style="height:16px;"></div>
+          <div class="node attr">2018</div>
+        </div>
+
+        <div class="branch">
+          <div class="branch-connector"></div>
+          <div class="node level2">"rating"</div>
+          <div class="connector" style="height:16px;"></div>
+          <div class="node attr">8.5</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <h3>🔑 Legend</h3>
+    <div class="legend-item"><div class="legend-box" style="background:#e50914;"></div> Root object — the whole JSON file</div>
+    <div class="legend-item"><div class="legend-box" style="background:#b00610;"></div> Array / Object — groups the movie items</div>
+    <div class="legend-item"><div class="legend-box" style="background:#1a1a1a; border:2px solid #e50914;"></div> Key — a field name inside each movie</div>
+    <div class="legend-item"><div class="legend-box" style="background:#2a2a2a; border:1px dashed #e50914;"></div> Example value stored for that key</div>
+  </div>
+
+</body>
+</html>

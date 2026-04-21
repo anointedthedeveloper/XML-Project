@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Address Book – XML Diagram</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #f0f7ff; padding: 40px 20px; }
+    h1 { text-align: center; color: #1a56a0; margin-bottom: 6px; }
+    p.sub { text-align: center; color: #666; margin-bottom: 40px; font-size: 0.9rem; }
+
+    .tree { display: flex; flex-direction: column; align-items: center; gap: 0; }
+
+    .node {
+      border-radius: 8px; padding: 10px 22px; font-size: 0.9rem;
+      font-weight: bold; text-align: center; position: relative;
+    }
+    .root  { background: #1a56a0; color: #fff; font-size: 1rem; padding: 12px 32px; }
+    .level1 { background: #4a90d9; color: #fff; }
+    .level2 { background: #fff; color: #333; border: 2px solid #4a90d9; font-weight: normal; min-width: 160px; }
+    .attr   { background: #e8f4ff; color: #1a56a0; border: 1px dashed #4a90d9; font-size: 0.8rem; font-weight: normal; }
+
+    .connector { width: 2px; background: #4a90d9; height: 28px; margin: 0 auto; }
+    .h-line { display: flex; align-items: flex-start; justify-content: center; gap: 0; position: relative; }
+    .h-line::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      height: 2px; background: #4a90d9;
+      width: calc(100% - 80px);
+    }
+    .branch { display: flex; flex-direction: column; align-items: center; padding: 0 20px; }
+    .branch-connector { width: 2px; background: #4a90d9; height: 28px; }
+
+    .fields { display: flex; gap: 10px; margin-top: 28px; }
+    .field-col { display: flex; flex-direction: column; align-items: center; gap: 0; }
+
+    .legend { max-width: 500px; margin: 50px auto 0; background: #fff; border-radius: 10px; padding: 20px; border: 1px solid #dce8f5; }
+    .legend h3 { color: #1a56a0; margin-bottom: 12px; }
+    .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; }
+    .legend-box { width: 24px; height: 18px; border-radius: 4px; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+  <h1>📒 Address Book — XML Structure</h1>
+  <p class="sub">How the data is organised in <code>contacts.xml</code></p>
+
+  <div class="tree">
+
+    <!-- Root -->
+    <div class="node root">&lt;addressbook&gt;</div>
+    <div class="connector"></div>
+
+    <!-- contact (repeated) -->
+    <div class="node level1">&lt;contact&gt; × 5</div>
+    <div class="connector"></div>
+
+    <!-- h-line across children -->
+    <div style="position:relative; width:520px;">
+      <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); height:2px; background:#4a90d9; width:420px;"></div>
+      <div style="display:flex; justify-content:space-around; padding-top:0;">
+
+        <div class="branch">
+          <div class="branch-connector"></div>
+          <div class="node level2">&lt;name&gt;</div>
+          <div class="connector" style="height:16px;"></div>
+          <div class="node attr">Chukwuemeka Obi</div>
+        </div>
+
+        <div class="branch">
+          <div class="branch-connector"></div>
+          <div class="node level2">&lt;phone&gt;</div>
+          <div class="connector" style="height:16px;"></div>
+          <div class="node attr">+234-803-456-7890</div>
+        </div>
+
+        <div class="branch">
+          <div class="branch-connector"></div>
+          <div class="node level2">&lt;email&gt;</div>
+          <div class="connector" style="height:16px;"></div>
+          <div class="node attr">emeka.obi@gmail.com</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <h3>🔑 Legend</h3>
+    <div class="legend-item"><div class="legend-box" style="background:#1a56a0;"></div> Root element — wraps everything</div>
+    <div class="legend-item"><div class="legend-box" style="background:#4a90d9;"></div> Repeating element — one per contact (×5)</div>
+    <div class="legend-item"><div class="legend-box" style="background:#fff; border:2px solid #4a90d9;"></div> Child element — holds one piece of data</div>
+    <div class="legend-item"><div class="legend-box" style="background:#e8f4ff; border:1px dashed #4a90d9;"></div> Example value stored inside the element</div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recipe Book – XML Diagram</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #fffaf4; padding: 40px 20px; }
+    h1 { text-align: center; color: #e65c00; margin-bottom: 6px; }
+    p.sub { text-align: center; color: #888; margin-bottom: 40px; font-size: 0.9rem; }
+
+    .tree { display: flex; flex-direction: column; align-items: center; }
+    .node { border-radius: 8px; padding: 10px 22px; font-size: 0.9rem; font-weight: bold; text-align: center; }
+    .root   { background: #e65c00; color: #fff; font-size: 1rem; padding: 12px 32px; }
+    .level1 { background: #f07b2a; color: #fff; }
+    .level2 { background: #fff; color: #333; border: 2px solid #e65c00; font-weight: normal; min-width: 140px; }
+    .level3 { background: #fff8f0; color: #555; border: 2px solid #f0a060; font-weight: normal; min-width: 120px; font-size: 0.85rem; }
+    .attr   { background: #fff3e0; color: #b84a00; border: 1px dashed #e65c00; font-size: 0.78rem; font-weight: normal; }
+    .id-badge { background: #e65c00; color: #fff; border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; margin-left: 6px; }
+
+    .connector { width: 2px; background: #e65c00; height: 28px; margin: 0 auto; }
+    .branch { display: flex; flex-direction: column; align-items: center; padding: 0 12px; }
+    .branch-connector { width: 2px; background: #e65c00; height: 28px; }
+    .sub-branch { display: flex; flex-direction: column; align-items: center; padding: 0 8px; }
+    .sub-connector { width: 2px; background: #f0a060; height: 20px; }
+
+    .legend { max-width: 560px; margin: 50px auto 0; background: #fff; border-radius: 10px; padding: 20px; border: 1px solid #f0dcc8; }
+    .legend h3 { color: #e65c00; margin-bottom: 12px; }
+    .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; }
+    .legend-box { width: 24px; height: 18px; border-radius: 4px; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+  <h1>🍽️ Recipe Book — XML Structure</h1>
+  <p class="sub">How the data is organised in <code>recipes.xml</code></p>
+
+  <div class="tree">
+
+    <!-- Root -->
+    <div class="node root">&lt;recipes&gt;</div>
+    <div class="connector"></div>
+
+    <!-- recipe -->
+    <div class="node level1">&lt;recipe id="1"&gt; × 4 <span class="id-badge">id attr</span></div>
+    <div class="connector"></div>
+
+    <!-- level 2 children spread -->
+    <div style="position:relative; width:820px;">
+      <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); height:2px; background:#e65c00; width:740px;"></div>
+      <div style="display:flex; justify-content:space-around; padding-top:0;">
+
+        <div class="branch">
+          <div class="branch-connector"></div>
+          <div class="node level2">&lt;title&gt;</div>
+          <div class="connector" style="height:16px;"></div>
+          <div class="node attr">Jollof Rice</div>
+        </div>
+
+        <div class="branch">
+          <div class="branch-connector"></div>
+          <div class="node level2">&lt;category&gt;</div>
+          <div class="connector" style="height:16px;"></div>
+          <div class="node attr">Main Course</div>
+        </div>
+
+        <div class="branch">
+          <div class="branch-connector"></div>
+          <div class="node level2">&lt;cookingtime&gt;</div>
+          <div class="connector" style="height:16px;"></div>
+          <div class="node attr">45 minutes</div>
+        </div>
+
+        <!-- ingredients branch -->
+        <div class="branch">
+          <div class="branch-connector"></div>
+          <div class="node level2">&lt;ingredients&gt;</div>
+          <div class="connector" style="height:16px;"></div>
+          <div style="position:relative; width:200px;">
+            <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); height:2px; background:#f0a060; width:160px;"></div>
+            <div style="display:flex; justify-content:space-around; padding-top:0;">
+              <div class="sub-branch">
+                <div class="sub-connector"></div>
+                <div class="node level3">&lt;item&gt;</div>
+                <div class="connector" style="height:12px; background:#f0a060;"></div>
+                <div class="node attr">2 cups rice</div>
+              </div>
+              <div class="sub-branch">
+                <div class="sub-connector"></div>
+                <div class="node level3">&lt;item&gt; ×n</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- steps branch -->
+        <div class="branch">
+          <div class="branch-connector"></div>
+          <div class="node level2">&lt;steps&gt;</div>
+          <div class="connector" style="height:16px;"></div>
+          <div style="position:relative; width:200px;">
+            <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); height:2px; background:#f0a060; width:160px;"></div>
+            <div style="display:flex; justify-content:space-around; padding-top:0;">
+              <div class="sub-branch">
+                <div class="sub-connector"></div>
+                <div class="node level3">&lt;step&gt;</div>
+                <div class="connector" style="height:12px; background:#f0a060;"></div>
+                <div class="node attr">Blend tomatoes…</div>
+              </div>
+              <div class="sub-branch">
+                <div class="sub-connector"></div>
+                <div class="node level3">&lt;step&gt; ×n</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <h3>🔑 Legend</h3>
+    <div class="legend-item"><div class="legend-box" style="background:#e65c00;"></div> Root element — wraps all recipes</div>
+    <div class="legend-item"><div class="legend-box" style="background:#f07b2a;"></div> Repeating element — one per recipe (×4), has an <strong>id</strong> attribute</div>
+    <div class="legend-item"><div class="legend-box" style="background:#fff; border:2px solid #e65c00;"></div> Child element — one piece of recipe info</div>
+    <div class="legend-item"><div class="legend-box" style="background:#fff8f0; border:2px solid #f0a060;"></div> Nested child — repeats for each ingredient / step</div>
+    <div class="legend-item"><div class="legend-box" style="background:#fff3e0; border:1px dashed #e65c00;"></div> Example value stored inside the element</div>
+  </div>
+
+</body>
+</html>
