@@ -8,9 +8,7 @@
     body { font-family: Arial, sans-serif; background: #fffaf4; padding: 40px 20px; }
     h1 { text-align: center; color: #e65c00; margin-bottom: 6px; }
     p.sub { text-align: center; color: #888; margin-bottom: 20px; font-size: 0.9rem; }
-
     svg { display: block; margin: 0 auto; overflow: visible; }
-
     .legend { max-width: 580px; margin: 40px auto 0; background: #fff; border-radius: 10px; padding: 20px; border: 1px solid #f0dcc8; }
     .legend h3 { color: #e65c00; margin-bottom: 12px; }
     .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; }
@@ -23,120 +21,140 @@
   <p class="sub">How the data is organised in <code>recipes.xml</code></p>
 
   <!--
-    Layout (x centres):
-      recipes root  : 460
-      recipe        : 460
-      Level-2 nodes : title=100, category=260, cookingtime=420, ingredients=600, steps=780
-      ingredients children : item=540, item×n=660
-      steps children       : step=720, step×n=840
+    Canvas: 1200 wide × 520 tall
+
+    Row Y positions:
+      Root rect top     : y=10,  centre-y=26
+      Root bottom       : y=42
+      Recipe rect top   : y=100, centre-y=116
+      Recipe bottom     : y=132
+      H-bar             : y=170
+      Level-2 rect top  : y=170, centre-y=186
+      Level-2 bottom    : y=202
+      Value / sub-H-bar : y=250
+      Sub-nodes top     : y=310
+      Sub-nodes bottom  : y=342
+      Sub-values top    : y=390
+
+    Level-2 x-centres (evenly spaced, 200px apart):
+      title        = 100
+      category     = 300
+      cookingtime  = 500
+      ingredients  = 720
+      steps        = 1000
+
+    ingredients children x-centres:  item=640, item×n=800
+    steps children x-centres:        step=920, step×n=1080
   -->
-  <svg width="940" height="430" viewBox="0 0 940 430">
+
+  <svg width="1200" height="520" viewBox="0 0 1200 520">
 
     <!-- ── root → recipe ── -->
-    <line x1="460" y1="42"  x2="460" y2="90"  stroke="#e65c00" stroke-width="2"/>
+    <line x1="600" y1="42"  x2="600" y2="100" stroke="#e65c00" stroke-width="2"/>
 
-    <!-- ── recipe → horizontal bar ── -->
-    <line x1="460" y1="122" x2="460" y2="155" stroke="#e65c00" stroke-width="2"/>
+    <!-- ── recipe → h-bar ── -->
+    <line x1="600" y1="132" x2="600" y2="170" stroke="#e65c00" stroke-width="2"/>
 
-    <!-- ── horizontal bar across all 5 level-2 nodes ── -->
-    <line x1="100" y1="155" x2="820" y2="155" stroke="#e65c00" stroke-width="2"/>
+    <!-- ── h-bar across all 5 level-2 nodes ── -->
+    <line x1="100" y1="170" x2="1000" y2="170" stroke="#e65c00" stroke-width="2"/>
 
-    <!-- ── bar → each level-2 node ── -->
-    <line x1="100" y1="155" x2="100" y2="195" stroke="#e65c00" stroke-width="2"/>
-    <line x1="270" y1="155" x2="270" y2="195" stroke="#e65c00" stroke-width="2"/>
-    <line x1="440" y1="155" x2="440" y2="195" stroke="#e65c00" stroke-width="2"/>
-    <line x1="610" y1="155" x2="610" y2="195" stroke="#e65c00" stroke-width="2"/>
-    <line x1="820" y1="155" x2="820" y2="195" stroke="#e65c00" stroke-width="2"/>
+    <!-- ── h-bar → each level-2 ── -->
+    <line x1="100"  y1="170" x2="100"  y2="202" stroke="#e65c00" stroke-width="2"/>
+    <line x1="300"  y1="170" x2="300"  y2="202" stroke="#e65c00" stroke-width="2"/>
+    <line x1="500"  y1="170" x2="500"  y2="202" stroke="#e65c00" stroke-width="2"/>
+    <line x1="720"  y1="170" x2="720"  y2="202" stroke="#e65c00" stroke-width="2"/>
+    <line x1="1000" y1="170" x2="1000" y2="202" stroke="#e65c00" stroke-width="2"/>
 
     <!-- ── title / category / cookingtime → values ── -->
-    <line x1="100" y1="227" x2="100" y2="265" stroke="#e65c00" stroke-width="2" stroke-dasharray="4,3"/>
-    <line x1="270" y1="227" x2="270" y2="265" stroke="#e65c00" stroke-width="2" stroke-dasharray="4,3"/>
-    <line x1="440" y1="227" x2="440" y2="265" stroke="#e65c00" stroke-width="2" stroke-dasharray="4,3"/>
+    <line x1="100" y1="234" x2="100" y2="270" stroke="#e65c00" stroke-width="2" stroke-dasharray="4,3"/>
+    <line x1="300" y1="234" x2="300" y2="270" stroke="#e65c00" stroke-width="2" stroke-dasharray="4,3"/>
+    <line x1="500" y1="234" x2="500" y2="270" stroke="#e65c00" stroke-width="2" stroke-dasharray="4,3"/>
 
-    <!-- ── ingredients → horizontal bar ── -->
-    <line x1="610" y1="227" x2="610" y2="260" stroke="#e65c00" stroke-width="2"/>
-    <line x1="540" y1="260" x2="680" y2="260" stroke="#f0a060" stroke-width="2"/>
-    <line x1="540" y1="260" x2="540" y2="295" stroke="#f0a060" stroke-width="2"/>
-    <line x1="680" y1="260" x2="680" y2="295" stroke="#f0a060" stroke-width="2"/>
+    <!-- ── ingredients → sub h-bar ── -->
+    <line x1="720" y1="234" x2="720" y2="270" stroke="#e65c00" stroke-width="2"/>
+    <line x1="640" y1="270" x2="800" y2="270" stroke="#f0a060" stroke-width="2"/>
+    <line x1="640" y1="270" x2="640" y2="310" stroke="#f0a060" stroke-width="2"/>
+    <line x1="800" y1="270" x2="800" y2="310" stroke="#f0a060" stroke-width="2"/>
 
-    <!-- ── steps → horizontal bar ── -->
-    <line x1="820" y1="227" x2="820" y2="260" stroke="#e65c00" stroke-width="2"/>
-    <line x1="750" y1="260" x2="890" y2="260" stroke="#f0a060" stroke-width="2"/>
-    <line x1="750" y1="260" x2="750" y2="295" stroke="#f0a060" stroke-width="2"/>
-    <line x1="890" y1="260" x2="890" y2="295" stroke="#f0a060" stroke-width="2"/>
+    <!-- ── steps → sub h-bar ── -->
+    <line x1="1000" y1="234" x2="1000" y2="270" stroke="#e65c00" stroke-width="2"/>
+    <line x1="920"  y1="270" x2="1080" y2="270" stroke="#f0a060" stroke-width="2"/>
+    <line x1="920"  y1="270" x2="920"  y2="310" stroke="#f0a060" stroke-width="2"/>
+    <line x1="1080" y1="270" x2="1080" y2="310" stroke="#f0a060" stroke-width="2"/>
 
-    <!-- ── item / step → values ── -->
-    <line x1="540" y1="327" x2="540" y2="365" stroke="#f0a060" stroke-width="2" stroke-dasharray="4,3"/>
-    <line x1="750" y1="327" x2="750" y2="365" stroke="#f0a060" stroke-width="2" stroke-dasharray="4,3"/>
+    <!-- ── item / step → example values ── -->
+    <line x1="640"  y1="342" x2="640"  y2="390" stroke="#f0a060" stroke-width="2" stroke-dasharray="4,3"/>
+    <line x1="920"  y1="342" x2="920"  y2="390" stroke="#f0a060" stroke-width="2" stroke-dasharray="4,3"/>
 
-    <!-- ════ NODES ════ -->
+
+    <!-- ════════ NODES ════════ -->
 
     <!-- root -->
-    <rect x="340" y="10" width="240" height="32" rx="8" fill="#e65c00"/>
-    <text x="460" y="31" text-anchor="middle" fill="white" font-size="14" font-weight="bold" font-family="Arial">&lt;recipes&gt;</text>
+    <rect x="460" y="10" width="280" height="32" rx="8" fill="#e65c00"/>
+    <text x="600" y="31" text-anchor="middle" fill="white" font-size="15" font-weight="bold" font-family="Arial">&lt;recipes&gt;</text>
 
     <!-- recipe -->
-    <rect x="290" y="90" width="340" height="32" rx="8" fill="#f07b2a"/>
-    <text x="430" y="111" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="Arial">&lt;recipe id="1"&gt;  ×4</text>
-    <rect x="610" y="93" width="52" height="22" rx="4" fill="#e65c00"/>
-    <text x="636" y="108" text-anchor="middle" fill="white" font-size="10" font-family="Arial">id attr</text>
+    <rect x="370" y="100" width="320" height="32" rx="8" fill="#f07b2a"/>
+    <text x="510" y="121" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="Arial">&lt;recipe id="1"&gt;  ×4</text>
+    <rect x="672" y="103" width="56" height="22" rx="4" fill="#c44a00"/>
+    <text x="700" y="118" text-anchor="middle" fill="white" font-size="10" font-family="Arial">id attr</text>
 
     <!-- title -->
-    <rect x="30"  y="195" width="140" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
-    <text x="100" y="216" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;title&gt;</text>
+    <rect x="28" y="202" width="144" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
+    <text x="100" y="223" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;title&gt;</text>
 
     <!-- category -->
-    <rect x="190" y="195" width="160" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
-    <text x="270" y="216" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;category&gt;</text>
+    <rect x="218" y="202" width="164" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
+    <text x="300" y="223" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;category&gt;</text>
 
     <!-- cookingtime -->
-    <rect x="350" y="195" width="180" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
-    <text x="440" y="216" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;cookingtime&gt;</text>
+    <rect x="406" y="202" width="188" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
+    <text x="500" y="223" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;cookingtime&gt;</text>
 
     <!-- ingredients -->
-    <rect x="540" y="195" width="140" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
-    <text x="610" y="216" text-anchor="middle" fill="#333" font-size="12" font-family="Arial">&lt;ingredients&gt;</text>
+    <rect x="636" y="202" width="168" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
+    <text x="720" y="223" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;ingredients&gt;</text>
 
     <!-- steps -->
-    <rect x="750" y="195" width="140" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
-    <text x="820" y="216" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;steps&gt;</text>
+    <rect x="916" y="202" width="168" height="32" rx="8" fill="white" stroke="#e65c00" stroke-width="2"/>
+    <text x="1000" y="223" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">&lt;steps&gt;</text>
 
     <!-- title value -->
-    <rect x="28"  y="265" width="144" height="32" rx="8" fill="#fff3e0" stroke="#e65c00" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="100" y="286" text-anchor="middle" fill="#b84a00" font-size="11" font-family="Arial">Jollof Rice</text>
+    <rect x="28" y="270" width="144" height="32" rx="8" fill="#fff3e0" stroke="#e65c00" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="100" y="291" text-anchor="middle" fill="#b84a00" font-size="12" font-family="Arial">Jollof Rice</text>
 
     <!-- category value -->
-    <rect x="192" y="265" width="156" height="32" rx="8" fill="#fff3e0" stroke="#e65c00" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="270" y="286" text-anchor="middle" fill="#b84a00" font-size="11" font-family="Arial">Main Course</text>
+    <rect x="218" y="270" width="164" height="32" rx="8" fill="#fff3e0" stroke="#e65c00" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="300" y="291" text-anchor="middle" fill="#b84a00" font-size="12" font-family="Arial">Main Course</text>
 
     <!-- cookingtime value -->
-    <rect x="360" y="265" width="160" height="32" rx="8" fill="#fff3e0" stroke="#e65c00" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="440" y="286" text-anchor="middle" fill="#b84a00" font-size="11" font-family="Arial">45 minutes</text>
+    <rect x="410" y="270" width="180" height="32" rx="8" fill="#fff3e0" stroke="#e65c00" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="500" y="291" text-anchor="middle" fill="#b84a00" font-size="12" font-family="Arial">45 minutes</text>
 
     <!-- item -->
-    <rect x="478" y="295" width="124" height="32" rx="8" fill="#fff8f0" stroke="#f0a060" stroke-width="2"/>
-    <text x="540" y="316" text-anchor="middle" fill="#555" font-size="12" font-family="Arial">&lt;item&gt;</text>
+    <rect x="568" y="310" width="144" height="32" rx="8" fill="#fff8f0" stroke="#f0a060" stroke-width="2"/>
+    <text x="640" y="331" text-anchor="middle" fill="#555" font-size="13" font-family="Arial">&lt;item&gt;</text>
 
     <!-- item ×n -->
-    <rect x="618" y="295" width="124" height="32" rx="8" fill="#fff8f0" stroke="#f0a060" stroke-width="2"/>
-    <text x="680" y="316" text-anchor="middle" fill="#555" font-size="12" font-family="Arial">&lt;item&gt; ×n</text>
+    <rect x="728" y="310" width="144" height="32" rx="8" fill="#fff8f0" stroke="#f0a060" stroke-width="2"/>
+    <text x="800" y="331" text-anchor="middle" fill="#555" font-size="13" font-family="Arial">&lt;item&gt; ×n</text>
 
     <!-- step -->
-    <rect x="688" y="295" width="124" height="32" rx="8" fill="#fff8f0" stroke="#f0a060" stroke-width="2"/>
-    <text x="750" y="316" text-anchor="middle" fill="#555" font-size="12" font-family="Arial">&lt;step&gt;</text>
+    <rect x="848" y="310" width="144" height="32" rx="8" fill="#fff8f0" stroke="#f0a060" stroke-width="2"/>
+    <text x="920" y="331" text-anchor="middle" fill="#555" font-size="13" font-family="Arial">&lt;step&gt;</text>
 
     <!-- step ×n -->
-    <rect x="828" y="295" width="124" height="32" rx="8" fill="#fff8f0" stroke="#f0a060" stroke-width="2"/>
-    <text x="890" y="316" text-anchor="middle" fill="#555" font-size="12" font-family="Arial">&lt;step&gt; ×n</text>
+    <rect x="1008" y="310" width="144" height="32" rx="8" fill="#fff8f0" stroke="#f0a060" stroke-width="2"/>
+    <text x="1080" y="331" text-anchor="middle" fill="#555" font-size="13" font-family="Arial">&lt;step&gt; ×n</text>
 
     <!-- item value -->
-    <rect x="468" y="365" width="144" height="32" rx="8" fill="#fff3e0" stroke="#f0a060" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="540" y="386" text-anchor="middle" fill="#b84a00" font-size="11" font-family="Arial">2 cups rice</text>
+    <rect x="562" y="390" width="156" height="32" rx="8" fill="#fff3e0" stroke="#f0a060" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="640" y="411" text-anchor="middle" fill="#b84a00" font-size="12" font-family="Arial">2 cups rice</text>
 
     <!-- step value -->
-    <rect x="672" y="365" width="156" height="32" rx="8" fill="#fff3e0" stroke="#f0a060" stroke-width="1" stroke-dasharray="5,3"/>
-    <text x="750" y="381" text-anchor="middle" fill="#b84a00" font-size="10" font-family="Arial">Blend tomatoes</text>
-    <text x="750" y="394" text-anchor="middle" fill="#b84a00" font-size="10" font-family="Arial">and onions…</text>
+    <rect x="836" y="390" width="168" height="40" rx="8" fill="#fff3e0" stroke="#f0a060" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="920" y="408" text-anchor="middle" fill="#b84a00" font-size="11" font-family="Arial">Blend tomatoes</text>
+    <text x="920" y="423" text-anchor="middle" fill="#b84a00" font-size="11" font-family="Arial">and onions…</text>
 
   </svg>
 
